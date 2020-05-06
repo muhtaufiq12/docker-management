@@ -10,6 +10,17 @@ class MainWindow:
         
         self.logoPath = "/home/taufiq/Documents/DATA/docker-management/assets/images/boss.png"
 
+        self.stylesheet = """
+
+        QPushButton#loginBtn{
+            background-color: #6052FF;
+            color: #fafafa; 
+            font-size: 15px; 
+            border-radius: 10px;
+        }
+
+        """
+
         self.initGui()
 
 
@@ -17,6 +28,7 @@ class MainWindow:
         self.window.setGeometry(0, 0, 1440, 1024)
 
         self.window.show()
+        self.app.setStyleSheet(self.stylesheet)
         sys.exit(self.app.exec_())
     
     def initGui(self):
@@ -38,6 +50,7 @@ class MainWindow:
 
         self.usernameField = QtWidgets.QTextEdit(self.window)
         self.usernameField.setGeometry(583, 380, 220, 25)
+        self.usernameField.setObjectName("usernameField")
         self.usernameField.setText("Username")
 
         #Create Password field
@@ -53,7 +66,8 @@ class MainWindow:
         self.loginBtn = QtWidgets.QPushButton(self.window)
         self.loginBtn.setGeometry(583, 480, 220, 40)
         self.loginBtn.setText("Login")
-        self.loginBtn.setStyleSheet("background-color: #4e4e4e; color: #fafafa; font-size: 15px; border: 1px solid #4e4e4e")
+        self.loginBtn.setObjectName("loginBtn")
+        #self.loginBtn.setStyleSheet("background-color: #4e4e4e; color: #fafafa; font-size: 15px; border: 1px solid #4e4e4e")
 
         
 
