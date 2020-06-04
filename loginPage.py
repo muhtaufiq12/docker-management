@@ -1,6 +1,7 @@
 import sys
 
 from PyQt5 import QtWidgets, QtCore, QtGui, Qt
+from MataElangManagement import Ui_MainWindow
 
 class MainWindow:
     def __init__(self):
@@ -67,7 +68,13 @@ class MainWindow:
         self.loginBtn.setGeometry(583, 480, 220, 40)
         self.loginBtn.setText("Login")
         self.loginBtn.setObjectName("loginBtn")
-        #self.loginBtn.setStyleSheet("background-color: #4e4e4e; color: #fafafa; font-size: 15px; border: 1px solid #4e4e4e")
+        self.loginBtn.clicked.connect(self.openLayout)
+        
+    def openLayout(self):
+        self.window = QtWidgets.QMainWindow()
+        self.ui = Ui_MainWindow()
+        self.ui.setupUi(self.window)
+        self.window.show()
 
         
 
