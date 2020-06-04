@@ -1,0 +1,1201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1440</width>
+    <height>1024</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QFrame" name="sidebarFrame">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>291</width>
+      <height>971</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(44, 62, 80);</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+    <widget class="QWidget" name="layoutWidget">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>130</y>
+       <width>261</width>
+       <height>121</height>
+      </rect>
+     </property>
+     <layout class="QVBoxLayout" name="sidebarLayout">
+      <item>
+       <widget class="QPushButton" name="dashboardButton">
+        <property name="font">
+         <font>
+          <family>FontAwesome</family>
+          <pointsize>16</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">color: rgb(255, 255, 255);</string>
+        </property>
+        <property name="text">
+         <string>Dashboard</string>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>assets/icon/dashboard-24.ico</normaloff>assets/icon/dashboard-24.ico</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>22</width>
+          <height>22</height>
+         </size>
+        </property>
+        <property name="autoDefault">
+         <bool>false</bool>
+        </property>
+        <property name="default">
+         <bool>false</bool>
+        </property>
+        <property name="flat">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="monitoringButton">
+        <property name="font">
+         <font>
+          <family>FontAwesome</family>
+          <pointsize>16</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">color: rgb(255, 255, 255);</string>
+        </property>
+        <property name="text">
+         <string>Monitoring</string>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>assets/icon/email-12-24.ico</normaloff>assets/icon/email-12-24.ico</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>22</width>
+          <height>22</height>
+         </size>
+        </property>
+        <property name="flat">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+    <widget class="QWidget" name="layoutWidget">
+     <property name="geometry">
+      <rect>
+       <x>100</x>
+       <y>10</y>
+       <width>180</width>
+       <height>111</height>
+      </rect>
+     </property>
+     <layout class="QHBoxLayout" name="profileLayout">
+      <item>
+       <layout class="QVBoxLayout" name="profile2Layout">
+        <item>
+         <widget class="QLabel" name="admin_label">
+          <property name="font">
+           <font>
+            <family>FontAwesome</family>
+            <pointsize>12</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: rgb(255, 255, 255);</string>
+          </property>
+          <property name="text">
+           <string>Admin</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="menuprofileLayout">
+          <item>
+           <widget class="QPushButton" name="settingButton">
+            <property name="font">
+             <font>
+              <family>FontAwesome</family>
+              <pointsize>10</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">color: rgb(255, 255, 255);</string>
+            </property>
+            <property name="text">
+             <string>Setting</string>
+            </property>
+            <property name="icon">
+             <iconset>
+              <normaloff>assets/icon/settings-5-24.ico</normaloff>assets/icon/settings-5-24.ico</iconset>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>16</width>
+              <height>16</height>
+             </size>
+            </property>
+            <property name="flat">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="logoutButton">
+            <property name="font">
+             <font>
+              <family>FontAwesome</family>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">color: rgb(255, 255, 255);</string>
+            </property>
+            <property name="text">
+             <string>Logout</string>
+            </property>
+            <property name="icon">
+             <iconset>
+              <normaloff>assets/icon/logout-24.ico</normaloff>assets/icon/logout-24.ico</iconset>
+            </property>
+            <property name="flat">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+    <widget class="QLabel" name="admin_photo">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>20</y>
+       <width>71</width>
+       <height>91</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="pixmap">
+      <pixmap>assets/images/boss.png</pixmap>
+     </property>
+     <property name="scaledContents">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QStackedWidget" name="stackedWidget">
+    <property name="geometry">
+     <rect>
+      <x>300</x>
+      <y>0</y>
+      <width>1131</width>
+      <height>971</height>
+     </rect>
+    </property>
+    <property name="currentIndex">
+     <number>0</number>
+    </property>
+    <widget class="QWidget" name="dashboardPage">
+     <widget class="QLabel" name="headerLabelDashboard">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>40</y>
+        <width>861</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>FontAwesome</family>
+        <pointsize>36</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Welcome To Mata Elang Sensor Management </string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="tableHaderLabel">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>180</y>
+        <width>161</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>FontAwesome</family>
+        <pointsize>24</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Sensor List</string>
+      </property>
+     </widget>
+     <widget class="QTableWidget" name="sensorListTable">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>250</y>
+        <width>731</width>
+        <height>251</height>
+       </rect>
+      </property>
+      <attribute name="horizontalHeaderDefaultSectionSize">
+       <number>118</number>
+      </attribute>
+      <attribute name="verticalHeaderDefaultSectionSize">
+       <number>44</number>
+      </attribute>
+      <row>
+       <property name="text">
+        <string>1</string>
+       </property>
+      </row>
+      <row>
+       <property name="text">
+        <string>2</string>
+       </property>
+      </row>
+      <row>
+       <property name="text">
+        <string>3</string>
+       </property>
+      </row>
+      <row>
+       <property name="text">
+        <string>4</string>
+       </property>
+      </row>
+      <row>
+       <property name="text">
+        <string>5</string>
+       </property>
+      </row>
+      <column>
+       <property name="text">
+        <string>Device ID</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Device Name</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Company</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Location</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>IP</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Action</string>
+       </property>
+      </column>
+      <item row="0" column="0">
+       <property name="text">
+        <string>12021991</string>
+       </property>
+      </item>
+      <item row="0" column="1">
+       <property name="text">
+        <string>sensor-pens-network-1</string>
+       </property>
+      </item>
+      <item row="0" column="2">
+       <property name="text">
+        <string>PENS</string>
+       </property>
+      </item>
+      <item row="0" column="3">
+       <property name="text">
+        <string>Surabaya, Jawa Timur, Indonesia</string>
+       </property>
+      </item>
+      <item row="0" column="4">
+       <property name="text">
+        <string>192.168.1.0/24</string>
+       </property>
+      </item>
+      <item row="1" column="0">
+       <property name="text">
+        <string>12021992</string>
+       </property>
+      </item>
+      <item row="1" column="1">
+       <property name="text">
+        <string>sensor-pens-network-2</string>
+       </property>
+      </item>
+      <item row="1" column="2">
+       <property name="text">
+        <string>PENS</string>
+       </property>
+      </item>
+      <item row="1" column="3">
+       <property name="text">
+        <string>Surabaya, Jawa Timur, Indonesia</string>
+       </property>
+      </item>
+      <item row="1" column="4">
+       <property name="text">
+        <string>192.168.1.1/24</string>
+       </property>
+      </item>
+      <item row="2" column="0">
+       <property name="text">
+        <string>12021993</string>
+       </property>
+      </item>
+      <item row="2" column="1">
+       <property name="text">
+        <string>sensor-pens-network-3</string>
+       </property>
+      </item>
+      <item row="2" column="2">
+       <property name="text">
+        <string>PENS</string>
+       </property>
+      </item>
+      <item row="2" column="3">
+       <property name="text">
+        <string>Surabaya, Jawa Timur, Indonesia</string>
+       </property>
+      </item>
+      <item row="2" column="4">
+       <property name="text">
+        <string>192.168.1.2/24</string>
+       </property>
+      </item>
+      <item row="3" column="0">
+       <property name="text">
+        <string>12021994</string>
+       </property>
+      </item>
+      <item row="3" column="1">
+       <property name="text">
+        <string>sensor-pens-network-4</string>
+       </property>
+      </item>
+      <item row="3" column="2">
+       <property name="text">
+        <string>PENS</string>
+       </property>
+      </item>
+      <item row="3" column="3">
+       <property name="text">
+        <string>Surabaya, Jawa Timur, Indonesia</string>
+       </property>
+      </item>
+      <item row="3" column="4">
+       <property name="text">
+        <string>192.168.1.3/24</string>
+       </property>
+      </item>
+      <item row="4" column="0">
+       <property name="text">
+        <string>12021995</string>
+       </property>
+      </item>
+      <item row="4" column="1">
+       <property name="text">
+        <string>sensor-pens-network-5</string>
+       </property>
+      </item>
+      <item row="4" column="2">
+       <property name="text">
+        <string>PENS</string>
+       </property>
+      </item>
+      <item row="4" column="3">
+       <property name="text">
+        <string>Surabaya, Jawa Timur, Indonesia</string>
+       </property>
+      </item>
+      <item row="4" column="4">
+       <property name="text">
+        <string>192.168.1.4/24</string>
+       </property>
+      </item>
+     </widget>
+     <widget class="QPushButton" name="addSensorButton">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>540</y>
+        <width>121</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>FontAwesome</family>
+        <pointsize>12</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(52, 152, 219);
+color: rgb(255, 255, 255);</string>
+      </property>
+      <property name="text">
+       <string>Add Sensor</string>
+      </property>
+      <property name="icon">
+       <iconset>
+        <normaloff>assets/icon/plus-24.ico</normaloff>assets/icon/plus-24.ico</iconset>
+      </property>
+      <property name="flat">
+       <bool>false</bool>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="monitoringPage">
+     <widget class="QLabel" name="headerLabelMonitorSensor">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>40</y>
+        <width>301</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>FontAwesome</family>
+        <pointsize>36</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Monitor Sensor</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="tableHeaderMonitorSensor">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>140</y>
+        <width>141</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>FontAwesome</family>
+        <pointsize>24</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Sensor List</string>
+      </property>
+     </widget>
+     <widget class="QTableWidget" name="monitorSensorTable">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>190</y>
+        <width>721</width>
+        <height>261</height>
+       </rect>
+      </property>
+      <attribute name="horizontalHeaderDefaultSectionSize">
+       <number>116</number>
+      </attribute>
+      <attribute name="verticalHeaderDefaultSectionSize">
+       <number>42</number>
+      </attribute>
+      <row>
+       <property name="text">
+        <string>1</string>
+       </property>
+      </row>
+      <row>
+       <property name="text">
+        <string>2</string>
+       </property>
+      </row>
+      <row>
+       <property name="text">
+        <string>3</string>
+       </property>
+      </row>
+      <row>
+       <property name="text">
+        <string>4</string>
+       </property>
+      </row>
+      <row>
+       <property name="text">
+        <string>5</string>
+       </property>
+      </row>
+      <column>
+       <property name="text">
+        <string>Device ID</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Device Name</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Company</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Location</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>IP</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Up Time</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Down Time</string>
+       </property>
+      </column>
+      <item row="0" column="0">
+       <property name="text">
+        <string>12021991</string>
+       </property>
+      </item>
+      <item row="0" column="1">
+       <property name="text">
+        <string>sensor-pens-network-1</string>
+       </property>
+      </item>
+      <item row="0" column="2">
+       <property name="text">
+        <string>PENS</string>
+       </property>
+      </item>
+      <item row="0" column="3">
+       <property name="text">
+        <string>Jawa Timur, Indonesia</string>
+       </property>
+      </item>
+      <item row="0" column="4">
+       <property name="text">
+        <string>192.168.1.0/24</string>
+       </property>
+      </item>
+      <item row="0" column="5">
+       <property name="text">
+        <string>1 hours 10 minutes</string>
+       </property>
+      </item>
+      <item row="0" column="6">
+       <property name="text">
+        <string>0 seconds</string>
+       </property>
+      </item>
+      <item row="1" column="0">
+       <property name="text">
+        <string>12021992</string>
+       </property>
+      </item>
+      <item row="1" column="1">
+       <property name="text">
+        <string>sensor-pens-network-2</string>
+       </property>
+      </item>
+      <item row="1" column="2">
+       <property name="text">
+        <string>PENS</string>
+       </property>
+      </item>
+      <item row="1" column="3">
+       <property name="text">
+        <string>Jawa Timur, Indonesia</string>
+       </property>
+      </item>
+      <item row="1" column="4">
+       <property name="text">
+        <string>192.168.1.1/24</string>
+       </property>
+      </item>
+      <item row="1" column="5">
+       <property name="text">
+        <string>1 hours 10 minutes</string>
+       </property>
+      </item>
+      <item row="1" column="6">
+       <property name="text">
+        <string>0 seconds</string>
+       </property>
+      </item>
+      <item row="2" column="0">
+       <property name="text">
+        <string>12021993</string>
+       </property>
+      </item>
+      <item row="2" column="1">
+       <property name="text">
+        <string>sensor-pens-network-3</string>
+       </property>
+      </item>
+      <item row="2" column="2">
+       <property name="text">
+        <string>PENS</string>
+       </property>
+      </item>
+      <item row="2" column="3">
+       <property name="text">
+        <string>Jawa Timur, Indonesia</string>
+       </property>
+      </item>
+      <item row="2" column="4">
+       <property name="text">
+        <string>192.168.1.2/24</string>
+       </property>
+      </item>
+      <item row="2" column="5">
+       <property name="text">
+        <string>1 hours 10 minutes</string>
+       </property>
+      </item>
+      <item row="2" column="6">
+       <property name="text">
+        <string>0 seconds</string>
+       </property>
+      </item>
+      <item row="3" column="0">
+       <property name="text">
+        <string>12021994</string>
+       </property>
+      </item>
+      <item row="3" column="1">
+       <property name="text">
+        <string>sensor-pens-network-4</string>
+       </property>
+      </item>
+      <item row="3" column="2">
+       <property name="text">
+        <string>PENS</string>
+       </property>
+      </item>
+      <item row="3" column="3">
+       <property name="text">
+        <string>Jawa Timur, Indonesia</string>
+       </property>
+      </item>
+      <item row="3" column="4">
+       <property name="text">
+        <string>192.168.1.3/24</string>
+       </property>
+      </item>
+      <item row="3" column="5">
+       <property name="text">
+        <string>1 hours 10 minutes</string>
+       </property>
+      </item>
+      <item row="3" column="6">
+       <property name="text">
+        <string>0 seconds</string>
+       </property>
+      </item>
+      <item row="4" column="0">
+       <property name="text">
+        <string>12021995</string>
+       </property>
+      </item>
+      <item row="4" column="1">
+       <property name="text">
+        <string>sensor-pens-network-5</string>
+       </property>
+      </item>
+      <item row="4" column="2">
+       <property name="text">
+        <string>PENS</string>
+       </property>
+      </item>
+      <item row="4" column="3">
+       <property name="text">
+        <string>Jawa Timur, Indonesia</string>
+       </property>
+      </item>
+      <item row="4" column="4">
+       <property name="text">
+        <string>192.168.1.4/24</string>
+       </property>
+      </item>
+      <item row="4" column="5">
+       <property name="text">
+        <string>1 hours 10 minutes</string>
+       </property>
+      </item>
+      <item row="4" column="6">
+       <property name="text">
+        <string>0 seconds</string>
+       </property>
+      </item>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="addSensorPage">
+     <widget class="QLabel" name="headerLabelAddSensor">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>40</y>
+        <width>221</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>FontAwesome</family>
+        <pointsize>36</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Add Sensor</string>
+      </property>
+     </widget>
+     <widget class="QWidget" name="layoutWidget">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>130</y>
+        <width>691</width>
+        <height>461</height>
+       </rect>
+      </property>
+      <layout class="QGridLayout" name="gridLayout">
+       <item row="0" column="0">
+        <widget class="QLabel" name="protectedSubnetlabel">
+         <property name="font">
+          <font>
+           <family>FontAwesome</family>
+           <pointsize>14</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Protected Subnet</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1" colspan="2">
+        <widget class="QLineEdit" name="protectedSubnetlineEdit"/>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="externalSubnetLabel">
+         <property name="font">
+          <font>
+           <family>FontAwesome</family>
+           <pointsize>14</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>External Subnet</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1" colspan="2">
+        <widget class="QLineEdit" name="externalSubnetlineEdit">
+         <property name="inputMask">
+          <string/>
+         </property>
+         <property name="text">
+          <string>default is any</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="mqttTopicLabel">
+         <property name="font">
+          <font>
+           <family>FontAwesome</family>
+           <pointsize>14</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>MQTT Topic</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1" colspan="2">
+        <widget class="QLineEdit" name="mqttTopiclineEdit">
+         <property name="text">
+          <string>default is snoqttv5</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="0">
+        <widget class="QLabel" name="mqttBrokerLabel">
+         <property name="font">
+          <font>
+           <family>FontAwesome</family>
+           <pointsize>14</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Mosquitto (MQTT Broker) IP</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="1" colspan="2">
+        <widget class="QLineEdit" name="mqttBrokerIPlineEdit"/>
+       </item>
+       <item row="4" column="0">
+        <widget class="QLabel" name="mqttBrokerPort">
+         <property name="font">
+          <font>
+           <family>FontAwesome</family>
+           <pointsize>14</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Mosquitto (MQTT Broker) Port</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="1" colspan="2">
+        <widget class="QLineEdit" name="mqttBrokerPortlineEdit">
+         <property name="text">
+          <string>default is 1883</string>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="0">
+        <widget class="QLabel" name="deviceIDLabel">
+         <property name="font">
+          <font>
+           <family>FontAwesome</family>
+           <pointsize>14</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Device ID</string>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="1" colspan="2">
+        <widget class="QLineEdit" name="deviceIDlineEdit"/>
+       </item>
+       <item row="6" column="0">
+        <widget class="QLabel" name="deviceNameLabel">
+         <property name="font">
+          <font>
+           <family>FontAwesome</family>
+           <pointsize>14</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Device Name</string>
+         </property>
+        </widget>
+       </item>
+       <item row="6" column="1" colspan="2">
+        <widget class="QLineEdit" name="deviceNamelineEdit"/>
+       </item>
+       <item row="7" column="0">
+        <widget class="QLabel" name="networkInterfaceLabel">
+         <property name="font">
+          <font>
+           <family>FontAwesome</family>
+           <pointsize>14</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Network Interface</string>
+         </property>
+        </widget>
+       </item>
+       <item row="7" column="1" colspan="2">
+        <widget class="QLineEdit" name="networkInterfacelineEdit"/>
+       </item>
+       <item row="8" column="0">
+        <widget class="QLabel" name="companyLabel">
+         <property name="font">
+          <font>
+           <family>FontAwesome</family>
+           <pointsize>14</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Company</string>
+         </property>
+        </widget>
+       </item>
+       <item row="8" column="1" colspan="2">
+        <widget class="QLineEdit" name="companylineEdit"/>
+       </item>
+       <item row="9" column="0">
+        <widget class="QLabel" name="ruleChoiceLabel">
+         <property name="font">
+          <font>
+           <family>FontAwesome</family>
+           <pointsize>14</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Rule Choice</string>
+         </property>
+        </widget>
+       </item>
+       <item row="9" column="1">
+        <widget class="QRadioButton" name="communityradioButton">
+         <property name="text">
+          <string>Co&amp;mmunity Rule</string>
+         </property>
+        </widget>
+       </item>
+       <item row="9" column="2">
+        <widget class="QRadioButton" name="reisteredradioButton">
+         <property name="text">
+          <string>Re&amp;gistered</string>
+         </property>
+        </widget>
+       </item>
+       <item row="10" column="0">
+        <widget class="QPushButton" name="createSensorButton">
+         <property name="font">
+          <font>
+           <family>FontAwesome</family>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(52, 152, 219);
+color: rgb(255, 255, 255);</string>
+         </property>
+         <property name="text">
+          <string>Create Sensor</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="settingPage">
+     <widget class="QLabel" name="settingheaderLabel">
+      <property name="geometry">
+       <rect>
+        <x>460</x>
+        <y>50</y>
+        <width>151</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>FontAwesome</family>
+        <pointsize>36</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Setting</string>
+      </property>
+     </widget>
+     <widget class="QWidget" name="layoutWidget">
+      <property name="geometry">
+       <rect>
+        <x>360</x>
+        <y>280</y>
+        <width>351</width>
+        <height>221</height>
+       </rect>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_2">
+       <item row="0" column="0">
+        <widget class="QLabel" name="nameSettingLabel">
+         <property name="font">
+          <font>
+           <family>FontAwesome</family>
+           <pointsize>14</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Name</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QLineEdit" name="nameSettinglineEdit"/>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="passwordSettingLabel">
+         <property name="font">
+          <font>
+           <family>FontAwesome</family>
+           <pointsize>14</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Password</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QLineEdit" name="passSettinglineEdit"/>
+       </item>
+       <item row="2" column="0" colspan="2">
+        <widget class="QPushButton" name="submitSettingButton">
+         <property name="font">
+          <font>
+           <family>FontAwesome</family>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(52, 152, 219);</string>
+         </property>
+         <property name="text">
+          <string>Submit</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1440</width>
+     <height>26</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>Fi&amp;le</string>
+    </property>
+    <addaction name="actionNew_Window"/>
+    <addaction name="actionExit"/>
+   </widget>
+   <widget class="QMenu" name="menuEdit">
+    <property name="title">
+     <string>E&amp;dit</string>
+    </property>
+    <widget class="QMenu" name="menuFind">
+     <property name="title">
+      <string>&amp;Find</string>
+     </property>
+     <addaction name="actionFind_2"/>
+     <addaction name="actionReplace"/>
+    </widget>
+    <addaction name="actionCopy"/>
+    <addaction name="actionCUt"/>
+    <addaction name="actionPaste"/>
+    <addaction name="menuFind"/>
+   </widget>
+   <widget class="QMenu" name="menuView">
+    <property name="title">
+     <string>View</string>
+    </property>
+   </widget>
+   <addaction name="menuFile"/>
+   <addaction name="menuEdit"/>
+   <addaction name="menuView"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionNew_Window">
+   <property name="text">
+    <string>&amp;New Window</string>
+   </property>
+  </action>
+  <action name="actionExit">
+   <property name="text">
+    <string>&amp;Exit</string>
+   </property>
+  </action>
+  <action name="actionCopy">
+   <property name="text">
+    <string>&amp;Copy</string>
+   </property>
+  </action>
+  <action name="actionCUt">
+   <property name="text">
+    <string>C&amp;ut</string>
+   </property>
+  </action>
+  <action name="actionPaste">
+   <property name="text">
+    <string>&amp;Paste</string>
+   </property>
+  </action>
+  <action name="actionFind_2">
+   <property name="text">
+    <string>&amp;Find ..</string>
+   </property>
+  </action>
+  <action name="actionReplace">
+   <property name="text">
+    <string>&amp;Replace</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
