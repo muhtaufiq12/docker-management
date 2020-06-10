@@ -1,13 +1,20 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'Mata-Elang-Management.ui'
+# Form implementation generated from reading ui file 'MataElangManagement.ui'
 #
 # Created by: PyQt5 UI code generator 5.14.1
 #
 # WARNING! All changes made in this file will be lost!
 
+import os
+import sys
+import subprocess
+import docker
+import shutil
+from os.path import abspath, dirname
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtWidgets import QInputDialog
 
 
 class Ui_MainWindow(object):
@@ -377,6 +384,7 @@ class Ui_MainWindow(object):
         self.gridLayout.addWidget(self.protectedSubnetlabel, 0, 0, 1, 1)
         self.protectedSubnetlineEdit = QtWidgets.QLineEdit(self.layoutWidget2)
         self.protectedSubnetlineEdit.setObjectName("protectedSubnetlineEdit")
+        # self.protectedSubnetlineEdit.text()
         self.gridLayout.addWidget(self.protectedSubnetlineEdit, 0, 1, 1, 2)
         self.externalSubnetLabel = QtWidgets.QLabel(self.layoutWidget2)
         font = QtGui.QFont()
@@ -480,6 +488,7 @@ class Ui_MainWindow(object):
         self.createSensorButton.setStyleSheet("background-color: rgb(52, 152, 219);\n"
 "color: rgb(255, 255, 255);")
         self.createSensorButton.setObjectName("createSensorButton")
+        self.createSensorButton.clicked.connect(self.addSensor)
         self.gridLayout.addWidget(self.createSensorButton, 10, 0, 1, 1)
         self.stackedWidget.addWidget(self.addSensorPage)
         self.settingPage = QtWidgets.QWidget()
@@ -789,6 +798,85 @@ class Ui_MainWindow(object):
         self.actionPaste.setText(_translate("MainWindow", "&Paste"))
         self.actionFind_2.setText(_translate("MainWindow", "&Find .."))
         self.actionReplace.setText(_translate("MainWindow", "&Replace"))
+    
+
+    def checkRootUser():
+        #Check script must run as root
+            if os.geteuid() != 0:
+                sys.exit("Please run as root")
+    
+    def cloneInstaller():
+        #Clone installer from Github
+        os.makedirs("/var/tmp/sensor-folder")
+        os.system('git clone https://github.com/mata-elang-pens/sensor-installer.git /var/tmp/sensor-folder/')
+
+    def addSensor(self):
+        protectedSubnet = self.protectedSubnetlineEdit.text()
+        externalSubnet = self.externalSubnetlineEdit.text()
+        mqttTopic = self.mqttTopiclineEdit.text()
+        mqttIP = self.mqttBrokerIPlineEdit.text()
+        mqttPort = self.mqttBrokerPortlineEdit.text()
+        deviceID = self.deviceIDlineEdit.text()
+        networkInterface = self.networkInterfacelineEdit.text()
+        company = self.companylineEdit.text()
+        communityChoice = str(self.communityradioButton.isChecked())
+        registeredChoice = str(self.reisteredradioButton.isChecked())
+
+        if communityChoice == "True":
+            ruleChoice = "1"
+        
+        if registeredChoice == "True":
+            ruleChoice = "2"
+            self.oinkcode = QtWidgets.QLineEdit(self.layoutWidget2)
+            self.oinkcode.move(130,22)
+
+            text, ok = QInputDialog.getText(self.layoutWidget2,'Input oinkcode','Enter your oinkcode :')
+            if ok:
+                self.oinkcode.setText(str(text))
+            
+            oinkcode = self.oinkcode.text()
+            
+    
+        # #Pull MataElang image
+        os.system('/usr/bin/docker pull mataelang/snorqttalpine-sensor:latest')
+ 
+        #Make directory in /etc
+        os.makedirs("/etc/mataelang-sensor")
+        
+        #Add Sensor Environment to /etc/mata-elangsensor
+        env_sensor_file = open("/etc/mataelang-sensor/sensor.env","w+")
+        env_sensor_file.write(
+            'PROTECTED_SUBNET={0}\nEXTERNAL_SUBNET={1}\nALERT_MQTT_TOPIC={2}\nALERT_MQTT_SERVER={3}\nALERT_MQTT_PORT={4}\nDEVICE_ID={5}\nNETINT={6}\nCOMPANY={7}\n'
+            .format(protectedSubnet, externalSubnet, mqttTopic, mqttIP, mqttPort, deviceID, networkInterface, company)
+        )
+
+        #Copy mataelang-snort.service
+        src = "/var/tmp/sensor-folder/service/mataelang-snort.service"
+        # dst = "/home/taufiq"
+        dst = "/etc/systemd/system/"
+        shutil.copy(src, dst)
+
+        if ruleChoice == "1":
+            os.system('docker tag mataelang/snorqttalpine-sensor:latest mataelang-snort')
+            Ui_MainWindow.createSensor()
+                
+    def createSensor():
+        #===Reload Daemon===#
+        os.system('systemctl daemon-reload')
+
+        #===Registering Mata Elang Snort Service===#
+        os.system('systemctl enable mataelang-snort.service')
+
+        #===Create Container===#
+        os.system('/usr/bin/docker create --name mataelang-sensor --network host -v /etc/localtime:/etc/localtime -v /etc/timezone:/etc/timezone --env-file /etc/mataelang-sensor/sensor.env mataelang-snort')
+        
+        #===Start Sensor===#
+        os.system('systemctl start mataelang-snort.service')
+
+        print("Done")
+        
+
+        
 
 
 if __name__ == "__main__":
@@ -797,5 +885,7 @@ if __name__ == "__main__":
     MainWindow = QtWidgets.QMainWindow()
     ui = Ui_MainWindow()
     ui.setupUi(MainWindow)
+    Ui_MainWindow.checkRootUser()
     MainWindow.show()
+    Ui_MainWindow.cloneInstaller()  
     sys.exit(app.exec_())
