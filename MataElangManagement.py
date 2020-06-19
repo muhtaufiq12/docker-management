@@ -11,11 +11,12 @@ import sys
 import subprocess
 import docker
 import shutil
+import sqlite3
 from os.path import abspath, dirname
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QInputDialog
-
+from PyQt5.QtSql import QSqlDatabase, QSqlQuery
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -467,19 +468,33 @@ class Ui_MainWindow(object):
         self.companylineEdit = QtWidgets.QLineEdit(self.layoutWidget2)
         self.companylineEdit.setObjectName("companylineEdit")
         self.gridLayout.addWidget(self.companylineEdit, 8, 1, 1, 2)
+
+        self.locationLabel = QtWidgets.QLabel(self.layoutWidget2)
+        font = QtGui.QFont()
+        font.setFamily("FontAwesome")
+        font.setPointSize(14)
+        self.locationLabel.setFont(font)
+        self.locationLabel.setObjectName("locationLabel")
+        self.gridLayout.addWidget(self.locationLabel, 9, 0, 1, 1)
+        self.locationlineEdit = QtWidgets.QLineEdit(self.layoutWidget2)
+        self.locationlineEdit.setObjectName("locationlineEdit")
+        self.gridLayout.addWidget(self.locationlineEdit, 9, 1, 1, 2)
+
+
+
         self.ruleChoiceLabel = QtWidgets.QLabel(self.layoutWidget2)
         font = QtGui.QFont()
         font.setFamily("FontAwesome")
         font.setPointSize(14)
         self.ruleChoiceLabel.setFont(font)
         self.ruleChoiceLabel.setObjectName("ruleChoiceLabel")
-        self.gridLayout.addWidget(self.ruleChoiceLabel, 9, 0, 1, 1)
+        self.gridLayout.addWidget(self.ruleChoiceLabel, 10, 0, 1, 1)
         self.communityradioButton = QtWidgets.QRadioButton(self.layoutWidget2)
         self.communityradioButton.setObjectName("communityradioButton")
-        self.gridLayout.addWidget(self.communityradioButton, 9, 1, 1, 1)
+        self.gridLayout.addWidget(self.communityradioButton, 10, 1, 1, 1)
         self.reisteredradioButton = QtWidgets.QRadioButton(self.layoutWidget2)
         self.reisteredradioButton.setObjectName("reisteredradioButton")
-        self.gridLayout.addWidget(self.reisteredradioButton, 9, 2, 1, 1)
+        self.gridLayout.addWidget(self.reisteredradioButton, 10, 2, 1, 1)
         self.createSensorButton = QtWidgets.QPushButton(self.layoutWidget2)
         font = QtGui.QFont()
         font.setFamily("FontAwesome")
@@ -489,7 +504,7 @@ class Ui_MainWindow(object):
 "color: rgb(255, 255, 255);")
         self.createSensorButton.setObjectName("createSensorButton")
         self.createSensorButton.clicked.connect(self.addSensor)
-        self.gridLayout.addWidget(self.createSensorButton, 10, 0, 1, 1)
+        self.gridLayout.addWidget(self.createSensorButton, 11, 0, 1, 1)
         self.stackedWidget.addWidget(self.addSensorPage)
         self.settingPage = QtWidgets.QWidget()
         self.settingPage.setObjectName("settingPage")
@@ -779,9 +794,13 @@ class Ui_MainWindow(object):
         self.deviceNameLabel.setText(_translate("MainWindow", "Device Name"))
         self.networkInterfaceLabel.setText(_translate("MainWindow", "Network Interface"))
         self.companyLabel.setText(_translate("MainWindow", "Company"))
+        self.locationLabel.setText(_translate("MainWindow", "Location"))
+        self.locationlineEdit.setText(_translate("MainWindow", "Another Host / At This Host"))
         self.ruleChoiceLabel.setText(_translate("MainWindow", "Rule Choice"))
         self.communityradioButton.setText(_translate("MainWindow", "Co&mmunity Rule"))
         self.reisteredradioButton.setText(_translate("MainWindow", "Re&gistered"))
+
+
         self.createSensorButton.setText(_translate("MainWindow", "Create Sensor"))
         self.settingheaderLabel.setText(_translate("MainWindow", "Setting"))
         self.nameSettingLabel.setText(_translate("MainWindow", "Name"))
@@ -805,12 +824,33 @@ class Ui_MainWindow(object):
             if os.geteuid() != 0:
                 sys.exit("Please run as root")
     
+
+    def connDB():
+        global db_conn
+        global db
+        db_conn = sqlite3.connect('db_sensor.db')
+        db = db_conn.cursor()
+    
+    def checkHost(self):
+        
+        if location == "At This Host":
+            Ui_MainWindow.a
+        
+    
     def cloneInstaller():
         #Clone installer from Github
-        os.makedirs("/var/tmp/sensor-folder")
-        os.system('git clone https://github.com/mata-elang-pens/sensor-installer.git /var/tmp/sensor-folder/')
+        path_checking = os.path.isdir("/var/tmp/sensor-folder")
+        output = str(path_checking)
+        
+        if output == "False":
+            os.makedirs("/var/tmp/sensor-folder")
+            os.system('git clone https://github.com/mata-elang-pens/sensor-installer.git /var/tmp/sensor-folder/')
+        else:
+            return
+        
 
     def addSensor(self):
+        global deviceID
         protectedSubnet = self.protectedSubnetlineEdit.text()
         externalSubnet = self.externalSubnetlineEdit.text()
         mqttTopic = self.mqttTopiclineEdit.text()
@@ -819,9 +859,11 @@ class Ui_MainWindow(object):
         deviceID = self.deviceIDlineEdit.text()
         networkInterface = self.networkInterfacelineEdit.text()
         company = self.companylineEdit.text()
+        location = self.locationlineEdit.text()
         communityChoice = str(self.communityradioButton.isChecked())
         registeredChoice = str(self.reisteredradioButton.isChecked())
 
+        #Setting Rule Choice
         if communityChoice == "True":
             ruleChoice = "1"
         
@@ -835,45 +877,75 @@ class Ui_MainWindow(object):
                 self.oinkcode.setText(str(text))
             
             oinkcode = self.oinkcode.text()
-            
-    
-        # #Pull MataElang image
-        os.system('/usr/bin/docker pull mataelang/snorqttalpine-sensor:latest')
- 
-        #Make directory in /etc
-        os.makedirs("/etc/mataelang-sensor")
         
-        #Add Sensor Environment to /etc/mata-elangsensor
-        env_sensor_file = open("/etc/mataelang-sensor/sensor.env","w+")
+        #Insert Data Into Database
+        db.execute("INSERT INTO tb_sensor_env (protectedSubnet, externalSubnet, mqttTopic, mqttIP, mqttPort, deviceID, networkInterface, company) VALUES(?, ?, ?, ?, ?, ?, ?, ?)",
+        (protectedSubnet, externalSubnet, mqttTopic, mqttIP, mqttPort, deviceID, networkInterface, company))
+
+        db_conn.commit()
+        
+        #Add Sensor Environment to /var/tmp/environment_sensor
+        path_env_checking = os.path.isdir("/var/tmp/environment_sensor")
+        output_env_path = str(path_env_checking)
+        if output_env_path == "False":
+            os.makedirs("/var/tmp/environment_sensor")
+        else:
+            print("/var/tmp/environment_sensor folder exists")
+                
+        env_sensor_file = open("/var/tmp/environment_sensor/sensor-"+deviceID+".env","w+")
         env_sensor_file.write(
             'PROTECTED_SUBNET={0}\nEXTERNAL_SUBNET={1}\nALERT_MQTT_TOPIC={2}\nALERT_MQTT_SERVER={3}\nALERT_MQTT_PORT={4}\nDEVICE_ID={5}\nNETINT={6}\nCOMPANY={7}\n'
             .format(protectedSubnet, externalSubnet, mqttTopic, mqttIP, mqttPort, deviceID, networkInterface, company)
         )
 
-        #Copy mataelang-snort.service
-        src = "/var/tmp/sensor-folder/service/mataelang-snort.service"
-        # dst = "/home/taufiq"
-        dst = "/etc/systemd/system/"
-        shutil.copy(src, dst)
+        if location == "At This Host":
+            #Copy mataelang-snort.service
+            src = "/var/tmp/sensor-folder/service/mataelang-snort.service"
+            dst = "/etc/systemd/system/"
+            shutil.copy(src, dst)
 
-        if ruleChoice == "1":
-            os.system('docker tag mataelang/snorqttalpine-sensor:latest mataelang-snort')
-            Ui_MainWindow.createSensor()
-                
+            if ruleChoice == "1":
+                Ui_MainWindow.createSensor()
+        elif location == "Another Host":
+            print("Do Something")
+    
+    def readDataSensor():
+        db.execute("SELECT * FROM tb_sensor_env")
+        data_sensor = db.fetchall()
+        for row in data_sensor:
+            print(row)
+    
     def createSensor():
-        #===Reload Daemon===#
+        #Pull MataElang image
+        os.system('/usr/bin/docker pull mataelang/snorqttalpine-sensor:latest')
+        os.system('docker tag mataelang/snorqttalpine-sensor:latest mataelang-snort')
+
+        # Make directory in /etc
+        path_etc_checking = os.path.isdir("/etc/mataelang-sensor")
+        output_etc = str(path_etc_checking)
+
+        if output_etc == "False":
+            os.makedirs("/etc/mataelang-sensor")
+        else:
+            print("/etc/mataelang-sensor folder exist")
+
+        src = "/var/tmp/environment_sensor/sensor-"+deviceID+".env"
+        dst = "/etc/mataelang-sensor/sensor.env"
+        shutil.copy(src, dst)
+        
+        #Reload Daemon
         os.system('systemctl daemon-reload')
 
-        #===Registering Mata Elang Snort Service===#
+        #Registering Mata Elang Snort Service
         os.system('systemctl enable mataelang-snort.service')
 
-        #===Create Container===#
+        #Create Container
         os.system('/usr/bin/docker create --name mataelang-sensor --network host -v /etc/localtime:/etc/localtime -v /etc/timezone:/etc/timezone --env-file /etc/mataelang-sensor/sensor.env mataelang-snort')
         
-        #===Start Sensor===#
+        #Start Sensor
         os.system('systemctl start mataelang-snort.service')
 
-        print("Done")
+        print("Mata Elang Sensor Success Create")
         
 
         
@@ -887,5 +959,7 @@ if __name__ == "__main__":
     ui.setupUi(MainWindow)
     Ui_MainWindow.checkRootUser()
     MainWindow.show()
+    Ui_MainWindow.connDB()
     Ui_MainWindow.cloneInstaller()  
+    Ui_MainWindow.readDataSensor()
     sys.exit(app.exec_())
