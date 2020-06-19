@@ -1,2 +1,5 @@
 #Untrack Folder
 assets/
+
+#Ignore all .db files
+*.db
