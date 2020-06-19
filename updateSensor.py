@@ -25,7 +25,7 @@ else:
 current_directory = os.getcwd()
 
 #Shutdown Mata Elang Service
-subprocess.Popen(["systemctl", "stop", "mataelang-snort.service"])
+os.system("systemctl stop mataelang-snort.service")
 
 #Choose Rule
 print("What kind rules do you want to use?\n\t1. Community\n\t2. Registered (required oinkcode)\n")
@@ -36,20 +36,23 @@ if (RULE_CHOICE != "1" and RULE_CHOICE != "2"):
     sys.exit("Choose a valid choice")
 
 #Removing old container and old image
-subprocess.Popen(["/usr/bin/docker", "container", "rm", "mataelang-sensor"])
-subprocess.Popen(["/usr/bin/docker", "image", "rm", "mataelang-snort"])
+os.system("/usr/bin/docker container rm mataelang-sensor")
+os.system("/usr/bin/docker image rm mataelang-snort")
+
 
 #Pull Mata Elang Sensor Latest Version
-subprocess.Popen(["/usr/bin/docker", "pull", "mataelang/snorqttalpine-sensor:latest"])
+os.system("/usr/bin/docker pull mataelang/snorqttalpine-sensor:latest")
 
 #Condition to user when use community or Registered
 if RULE_CHOICE == "1":
-    subprocess.Popen(["docker", "tag", "mataelang/snorqttalpine-sensor:latest", "mataelang-snort"])
+    os.system('docker tag mataelang/snorqttalpine-sensor:latest mataelang-snort')
 
 if RULE_CHOICE == "2":
     print("I choose rule 2")
     #Build image with oinkcode
 
 #Recreate Mata Elang Sensor
-subprocess.Popen(["docker", "create", "--name", "mataelang-sensor", "--network", "host", "-v", "/etc/localtime:/etc/localtime", "-v", "/etc/timezone:/etc/timezone", "--env-file", "/etc/mataelang-sensor/sensor.env", "mataelang-snort"])
-subprocess.Popen(["systemctl", "start", "mataelang-snort.service"])
+os.system('/usr/bin/docker create --name mataelang-sensor --network host -v /etc/localtime:/etc/localtime -v /etc/timezone:/etc/timezone --env-file /etc/mataelang-sensor/sensor.env mataelang-snort')
+os.system('systemctl start mataelang-snort.service')
+
+print("Mata Elang Sensor Success Updated")
