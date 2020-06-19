@@ -8,12 +8,10 @@ if os.geteuid() != 0:
     sys.exit("Please run as root")
 
 
-#Get ID Container
+#Shutdown Mata Elang Service
+os.system("systemctl stop mataelang-snort.service")
+print("Mata Elang Service Stopped")
 
 #Remove Container
-proc = subprocess.run(['docker', 'ps', '-aq'], check=True, stdout=subprocess.PIPE, encoding='ascii')
-container_ids = proc.stdout.strip().split()
-print(container_ids)
-if container_ids:
-    subprocess.run(['docker', 'stop'] + container_ids, check=True)
-    subprocess.run(['docker', 'rm'] + container_ids, check=True)
+os.system("/usr/bin/docker container rm mataelang-sensor")
+print("Mata Elang Sensor Deleted")
