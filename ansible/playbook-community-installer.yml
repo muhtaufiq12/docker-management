@@ -1,0 +1,29 @@
+---
+- hosts: all
+  become: true
+  vars_files:
+  - vars/default.yml
+
+  tasks:
+    - name: Pull Mata Elang Image
+      docker_image:
+        name: "{{ default_container_image }}"
+        tag: mataelang-snort
+        source: pull
+
+    - name: Create directory for sensor environment
+      file:
+        path: /var/tmp/sensor_mataelang
+        state: directory
+
+    - name: Copy file to remote machine
+      copy:
+        src: /var/tmp/sensor_environment/sensor.env
+        dest: /var/tmp/sensor_mataelang/sensor.env
+    
+    - name: Create and Start Container
+      docker_container:
+        name: mataelang-sensor
+        image: "{{ default_container_image }}"
+        network_mode: host
+        env_file: /var/tmp/sensor_mataelang/sensor.env
