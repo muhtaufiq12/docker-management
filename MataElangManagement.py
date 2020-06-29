@@ -17,9 +17,14 @@ from os.path import abspath, dirname
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QInputDialog
 from PyQt5.QtSql import QSqlDatabase, QSqlQuery
+from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtCore import *
+from PyQt5.QtWidgets import *
+from PyQt5.QtGui import *
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
+
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(1440, 1024)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
@@ -225,6 +230,8 @@ class Ui_MainWindow(object):
         self.sensorListTable.setItem(4, 4, item)
         self.sensorListTable.horizontalHeader().setDefaultSectionSize(118)
         self.sensorListTable.verticalHeader().setDefaultSectionSize(44)
+
+        # Tombol Menuju Halaman Add Sensor
         self.addSensorButton = QtWidgets.QPushButton(self.dashboardPage)
         self.addSensorButton.setGeometry(QtCore.QRect(30, 540, 121, 31))
         font = QtGui.QFont()
@@ -242,6 +249,9 @@ class Ui_MainWindow(object):
         self.addSensorButton.setFlat(False)
         self.addSensorButton.setObjectName("addSensorButton")
         self.addSensorButton.clicked.connect(lambda: self.stackedWidget.setCurrentIndex(2))
+        
+
+
         self.stackedWidget.addWidget(self.dashboardPage)
         self.monitoringPage = QtWidgets.QWidget()
         self.monitoringPage.setObjectName("monitoringPage")
@@ -361,6 +371,8 @@ class Ui_MainWindow(object):
         self.monitorSensorTable.horizontalHeader().setDefaultSectionSize(116)
         self.monitorSensorTable.verticalHeader().setDefaultSectionSize(42)
         self.stackedWidget.addWidget(self.monitoringPage)
+
+        # Halaman Add Sensor
         self.addSensorPage = QtWidgets.QWidget()
         self.addSensorPage.setObjectName("addSensorPage")
         self.headerLabelAddSensor = QtWidgets.QLabel(self.addSensorPage)
@@ -376,6 +388,8 @@ class Ui_MainWindow(object):
         self.gridLayout = QtWidgets.QGridLayout(self.layoutWidget2)
         self.gridLayout.setContentsMargins(0, 0, 0, 0)
         self.gridLayout.setObjectName("gridLayout")
+
+        # Field Protected Subnet
         self.protectedSubnetlabel = QtWidgets.QLabel(self.layoutWidget2)
         font = QtGui.QFont()
         font.setFamily("FontAwesome")
@@ -385,8 +399,10 @@ class Ui_MainWindow(object):
         self.gridLayout.addWidget(self.protectedSubnetlabel, 0, 0, 1, 1)
         self.protectedSubnetlineEdit = QtWidgets.QLineEdit(self.layoutWidget2)
         self.protectedSubnetlineEdit.setObjectName("protectedSubnetlineEdit")
-        # self.protectedSubnetlineEdit.text()
         self.gridLayout.addWidget(self.protectedSubnetlineEdit, 0, 1, 1, 2)
+        
+
+        # Field External Subnet
         self.externalSubnetLabel = QtWidgets.QLabel(self.layoutWidget2)
         font = QtGui.QFont()
         font.setFamily("FontAwesome")
@@ -398,6 +414,9 @@ class Ui_MainWindow(object):
         self.externalSubnetlineEdit.setInputMask("")
         self.externalSubnetlineEdit.setObjectName("externalSubnetlineEdit")
         self.gridLayout.addWidget(self.externalSubnetlineEdit, 1, 1, 1, 2)
+        
+
+        # Field MQTT Topic
         self.mqttTopicLabel = QtWidgets.QLabel(self.layoutWidget2)
         font = QtGui.QFont()
         font.setFamily("FontAwesome")
@@ -408,6 +427,9 @@ class Ui_MainWindow(object):
         self.mqttTopiclineEdit = QtWidgets.QLineEdit(self.layoutWidget2)
         self.mqttTopiclineEdit.setObjectName("mqttTopiclineEdit")
         self.gridLayout.addWidget(self.mqttTopiclineEdit, 2, 1, 1, 2)
+        
+
+        # Field MQTT IP
         self.mqttBrokerLabel = QtWidgets.QLabel(self.layoutWidget2)
         font = QtGui.QFont()
         font.setFamily("FontAwesome")
@@ -418,6 +440,9 @@ class Ui_MainWindow(object):
         self.mqttBrokerIPlineEdit = QtWidgets.QLineEdit(self.layoutWidget2)
         self.mqttBrokerIPlineEdit.setObjectName("mqttBrokerIPlineEdit")
         self.gridLayout.addWidget(self.mqttBrokerIPlineEdit, 3, 1, 1, 2)
+        
+
+        # Field MQTT Port
         self.mqttBrokerPort = QtWidgets.QLabel(self.layoutWidget2)
         font = QtGui.QFont()
         font.setFamily("FontAwesome")
@@ -428,6 +453,9 @@ class Ui_MainWindow(object):
         self.mqttBrokerPortlineEdit = QtWidgets.QLineEdit(self.layoutWidget2)
         self.mqttBrokerPortlineEdit.setObjectName("mqttBrokerPortlineEdit")
         self.gridLayout.addWidget(self.mqttBrokerPortlineEdit, 4, 1, 1, 2)
+        
+
+        # Field Device ID
         self.deviceIDLabel = QtWidgets.QLabel(self.layoutWidget2)
         font = QtGui.QFont()
         font.setFamily("FontAwesome")
@@ -438,6 +466,9 @@ class Ui_MainWindow(object):
         self.deviceIDlineEdit = QtWidgets.QLineEdit(self.layoutWidget2)
         self.deviceIDlineEdit.setObjectName("deviceIDlineEdit")
         self.gridLayout.addWidget(self.deviceIDlineEdit, 5, 1, 1, 2)
+        
+
+        # Field Device Name
         self.deviceNameLabel = QtWidgets.QLabel(self.layoutWidget2)
         font = QtGui.QFont()
         font.setFamily("FontAwesome")
@@ -448,6 +479,9 @@ class Ui_MainWindow(object):
         self.deviceNamelineEdit = QtWidgets.QLineEdit(self.layoutWidget2)
         self.deviceNamelineEdit.setObjectName("deviceNamelineEdit")
         self.gridLayout.addWidget(self.deviceNamelineEdit, 6, 1, 1, 2)
+        
+        
+        # Field Network Interface
         self.networkInterfaceLabel = QtWidgets.QLabel(self.layoutWidget2)
         font = QtGui.QFont()
         font.setFamily("FontAwesome")
@@ -458,6 +492,9 @@ class Ui_MainWindow(object):
         self.networkInterfacelineEdit = QtWidgets.QLineEdit(self.layoutWidget2)
         self.networkInterfacelineEdit.setObjectName("networkInterfacelineEdit")
         self.gridLayout.addWidget(self.networkInterfacelineEdit, 7, 1, 1, 2)
+        
+
+        # Field Company
         self.companyLabel = QtWidgets.QLabel(self.layoutWidget2)
         font = QtGui.QFont()
         font.setFamily("FontAwesome")
@@ -468,20 +505,9 @@ class Ui_MainWindow(object):
         self.companylineEdit = QtWidgets.QLineEdit(self.layoutWidget2)
         self.companylineEdit.setObjectName("companylineEdit")
         self.gridLayout.addWidget(self.companylineEdit, 8, 1, 1, 2)
+        
 
-        self.locationLabel = QtWidgets.QLabel(self.layoutWidget2)
-        font = QtGui.QFont()
-        font.setFamily("FontAwesome")
-        font.setPointSize(14)
-        self.locationLabel.setFont(font)
-        self.locationLabel.setObjectName("locationLabel")
-        self.gridLayout.addWidget(self.locationLabel, 9, 0, 1, 1)
-        self.locationlineEdit = QtWidgets.QLineEdit(self.layoutWidget2)
-        self.locationlineEdit.setObjectName("locationlineEdit")
-        self.gridLayout.addWidget(self.locationlineEdit, 9, 1, 1, 2)
-
-
-
+        # Field Pilih Rule
         self.ruleChoiceLabel = QtWidgets.QLabel(self.layoutWidget2)
         font = QtGui.QFont()
         font.setFamily("FontAwesome")
@@ -495,6 +521,8 @@ class Ui_MainWindow(object):
         self.reisteredradioButton = QtWidgets.QRadioButton(self.layoutWidget2)
         self.reisteredradioButton.setObjectName("reisteredradioButton")
         self.gridLayout.addWidget(self.reisteredradioButton, 10, 2, 1, 1)
+
+        # Tombol Buat Sensor
         self.createSensorButton = QtWidgets.QPushButton(self.layoutWidget2)
         font = QtGui.QFont()
         font.setFamily("FontAwesome")
@@ -503,7 +531,9 @@ class Ui_MainWindow(object):
         self.createSensorButton.setStyleSheet("background-color: rgb(52, 152, 219);\n"
 "color: rgb(255, 255, 255);")
         self.createSensorButton.setObjectName("createSensorButton")
-        self.createSensorButton.clicked.connect(self.addSensor)
+        self.createSensorButton.clicked.connect(self.createDataSensor)
+
+
         self.gridLayout.addWidget(self.createSensorButton, 11, 0, 1, 1)
         self.stackedWidget.addWidget(self.addSensorPage)
         self.settingPage = QtWidgets.QWidget()
@@ -794,8 +824,6 @@ class Ui_MainWindow(object):
         self.deviceNameLabel.setText(_translate("MainWindow", "Device Name"))
         self.networkInterfaceLabel.setText(_translate("MainWindow", "Network Interface"))
         self.companyLabel.setText(_translate("MainWindow", "Company"))
-        self.locationLabel.setText(_translate("MainWindow", "Location"))
-        self.locationlineEdit.setText(_translate("MainWindow", "Another Host / At This Host"))
         self.ruleChoiceLabel.setText(_translate("MainWindow", "Rule Choice"))
         self.communityradioButton.setText(_translate("MainWindow", "Co&mmunity Rule"))
         self.reisteredradioButton.setText(_translate("MainWindow", "Re&gistered"))
@@ -818,39 +846,37 @@ class Ui_MainWindow(object):
         self.actionFind_2.setText(_translate("MainWindow", "&Find .."))
         self.actionReplace.setText(_translate("MainWindow", "&Replace"))
     
-
-    def checkRootUser():
-        #Check script must run as root
-            if os.geteuid() != 0:
-                sys.exit("Please run as root")
-    
-
     def connDB():
         global db_conn
         global db
         db_conn = sqlite3.connect('db_sensor.db')
         db = db_conn.cursor()
     
-    def checkHost(self):
+    def createDataSensor(self):
+        #Pilih IP
+        list_host = []
+        with open("list-host.txt") as f:    
+            for line in f:
+                line = line.strip()
+                list_host.append(line)
         
-        if location == "At This Host":
-            Ui_MainWindow.a
-        
-    
-    def cloneInstaller():
-        #Clone installer from Github
-        path_checking = os.path.isdir("/var/tmp/sensor-folder")
-        output = str(path_checking)
-        
-        if output == "False":
-            os.makedirs("/var/tmp/sensor-folder")
-            os.system('git clone https://github.com/mata-elang-pens/sensor-installer.git /var/tmp/sensor-folder/')
-        else:
-            return
-        
+        self.host = QtWidgets.QLineEdit(self.layoutWidget2)
+        self.host.move(130,22)
 
-    def addSensor(self):
-        global deviceID
+        host, ok = QInputDialog.getItem(self.layoutWidget2, "Select Available IP", "List of IP", list_host, 0, False)
+	
+        if ok and host:
+            self.host.setText(str(host))
+        
+        # Input IP kedalam variable hosts
+        host = self.host.text()
+
+        # Buat Inventory File untuk Hosts
+        hosts_file = open("./ansible/hosts.ini","w+")
+        hosts_file.write(host)
+        hosts_file.close()
+
+
         protectedSubnet = self.protectedSubnetlineEdit.text()
         externalSubnet = self.externalSubnetlineEdit.text()
         mqttTopic = self.mqttTopiclineEdit.text()
@@ -859,11 +885,12 @@ class Ui_MainWindow(object):
         deviceID = self.deviceIDlineEdit.text()
         networkInterface = self.networkInterfacelineEdit.text()
         company = self.companylineEdit.text()
-        location = self.locationlineEdit.text()
         communityChoice = str(self.communityradioButton.isChecked())
         registeredChoice = str(self.reisteredradioButton.isChecked())
 
-        #Setting Rule Choice
+        #Konfigurasi Pilihan User
+        communityChoice = str(self.communityradioButton.isChecked())
+        registeredChoice = str(self.reisteredradioButton.isChecked())
         if communityChoice == "True":
             ruleChoice = "1"
         
@@ -878,78 +905,55 @@ class Ui_MainWindow(object):
             
             oinkcode = self.oinkcode.text()
         
-        #Insert Data Into Database
+        #Tambahkan data ke dalam database 
         db.execute("INSERT INTO tb_sensor_env (protectedSubnet, externalSubnet, mqttTopic, mqttIP, mqttPort, deviceID, networkInterface, company) VALUES(?, ?, ?, ?, ?, ?, ?, ?)",
         (protectedSubnet, externalSubnet, mqttTopic, mqttIP, mqttPort, deviceID, networkInterface, company))
 
         db_conn.commit()
         
-        #Add Sensor Environment to /var/tmp/environment_sensor
-        path_env_checking = os.path.isdir("/var/tmp/environment_sensor")
+        #Tambah file .env ke /var/tmp/sensor_environment untuk di copy ke remote host
+        path_env_checking = os.path.isdir("/var/tmp/sensor_environment")
         output_env_path = str(path_env_checking)
         if output_env_path == "False":
-            os.makedirs("/var/tmp/environment_sensor")
+            os.makedirs("/var/tmp/sensor_environment")
         else:
-            print("/var/tmp/environment_sensor folder exists")
+            print("/var/tmp/sensor_environment folder exists")
                 
-        env_sensor_file = open("/var/tmp/environment_sensor/sensor-"+deviceID+".env","w+")
+        env_sensor_file = open("/var/tmp/sensor_environment/sensor.env","w+")
         env_sensor_file.write(
             'PROTECTED_SUBNET={0}\nEXTERNAL_SUBNET={1}\nALERT_MQTT_TOPIC={2}\nALERT_MQTT_SERVER={3}\nALERT_MQTT_PORT={4}\nDEVICE_ID={5}\nNETINT={6}\nCOMPANY={7}\n'
             .format(protectedSubnet, externalSubnet, mqttTopic, mqttIP, mqttPort, deviceID, networkInterface, company)
         )
+        env_sensor_file.close()
 
-        if location == "At This Host":
-            #Copy mataelang-snort.service
-            src = "/var/tmp/sensor-folder/service/mataelang-snort.service"
-            dst = "/etc/systemd/system/"
-            shutil.copy(src, dst)
-
-            if ruleChoice == "1":
-                Ui_MainWindow.createSensor()
-        elif location == "Another Host":
-            print("Do Something")
+        if ruleChoice == "1":
+            Ui_MainWindow.installCommunitySensor()
+        else:
+            print("Belum ada :p")
+    
+    def installCommunitySensor():
+        os.chdir("/home/taufiq/Documents/DATA/docker-management/ansible")
+        os.system("ansible-playbook playbook-install-docker.yml playbook-community-installer.yml -i hosts.ini ")
     
     def readDataSensor():
         db.execute("SELECT * FROM tb_sensor_env")
         data_sensor = db.fetchall()
         for row in data_sensor:
             print(row)
-    
-    def createSensor():
-        #Pull MataElang image
-        os.system('/usr/bin/docker pull mataelang/snorqttalpine-sensor:latest')
-        os.system('docker tag mataelang/snorqttalpine-sensor:latest mataelang-snort')
 
-        # Make directory in /etc
-        path_etc_checking = os.path.isdir("/etc/mataelang-sensor")
-        output_etc = str(path_etc_checking)
-
-        if output_etc == "False":
-            os.makedirs("/etc/mataelang-sensor")
+    def copyFileSensor():
+        # Copy file .env ke /var/tmp/data_sensor sebagai data sensor pada server
+        path_data_sensor_checking = os.path.isdir("/var/tmp/data_sensor")
+        output_data_sensor_path = str(path_data_sensor_checking)
+        if output_data_sensor_path == "False":
+            os.makedirs("/var/tmp/data_sensor")
         else:
-            print("/etc/mataelang-sensor folder exist")
-
-        src = "/var/tmp/environment_sensor/sensor-"+deviceID+".env"
-        dst = "/etc/mataelang-sensor/sensor.env"
-        shutil.copy(src, dst)
+            print("/var/tmp/data_sensor folder exists")
         
-        #Reload Daemon
-        os.system('systemctl daemon-reload')
-
-        #Registering Mata Elang Snort Service
-        os.system('systemctl enable mataelang-snort.service')
-
-        #Create Container
-        os.system('/usr/bin/docker create --name mataelang-sensor --network host -v /etc/localtime:/etc/localtime -v /etc/timezone:/etc/timezone --env-file /etc/mataelang-sensor/sensor.env mataelang-snort')
-        
-        #Start Sensor
-        os.system('systemctl start mataelang-snort.service')
-
-        print("Mata Elang Sensor Success Create")
-        
-
-        
-
+        src_data_sensor = "/var/tmp/sensor_environment/sensor.env"
+        dst_data_sensor = "/var/tmp/data_sensor/sensor-"+deviceID+".env"
+        shutil.copy2("/var/tmp/sensor_environment/sensor.env", "/var/tmp/data_sensor/sensor-"+deviceID+".env")
+    
 
 if __name__ == "__main__":
     import sys
@@ -957,9 +961,7 @@ if __name__ == "__main__":
     MainWindow = QtWidgets.QMainWindow()
     ui = Ui_MainWindow()
     ui.setupUi(MainWindow)
-    Ui_MainWindow.checkRootUser()
     MainWindow.show()
     Ui_MainWindow.connDB()
-    Ui_MainWindow.cloneInstaller()  
     Ui_MainWindow.readDataSensor()
     sys.exit(app.exec_())
