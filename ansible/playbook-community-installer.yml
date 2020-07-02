@@ -10,6 +10,8 @@
         name: "{{ default_container_image }}"
         tag: mataelang-snort
         source: pull
+      tags:
+        - Pulling Images
 
     - name: Create directory for sensor environment
       file:
@@ -23,7 +25,9 @@
     
     - name: Create and Start Container
       docker_container:
-        name: mataelang-sensor
+        name: "{{ default_container_name }}"
         image: "{{ default_container_image }}"
         network_mode: host
         env_file: /var/tmp/sensor_mataelang/sensor.env
+      tags: 
+        - Running container
