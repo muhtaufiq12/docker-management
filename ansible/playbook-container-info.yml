@@ -1,0 +1,35 @@
+---
+- hosts: all
+  become: true
+  vars_files:
+  - vars/default.yml
+
+  tasks:
+  - name: Get Infos on Container
+    docker_container_info:
+      name: "{{ default_container_name }}"
+    register: result
+
+  - name: Does Container Exists?
+    debug: 
+      msg: "The container {{ 'exists' if result.exists else 'does not exist' }}"
+
+  - name: Print The Status Of The Container
+    debug: 
+      msg: "The container status is {{ result.container['State']['Status'] }}"
+    when: result.exists
+  
+  - name: Print Container ID
+    debug:
+      msg: "The container id is {{ result.container['Id'] }}"
+    when: result.exists
+  
+  - name: Print Time Container Created
+    debug: 
+      msg: "The Container Created at {{ result.container['Created'] }}"
+    when: result.exists
+
+  - name: Print Time Container Started
+    debug:
+      msg: "The Container Started at {{ result.container['State']['StartedAt'] }}"
+    when: result.exists
