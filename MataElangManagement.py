@@ -160,13 +160,90 @@ class Ui_MainWindow(object):
         self.tableHaderLabel.setFont(font)
         self.tableHaderLabel.setObjectName("tableHaderLabel")
 
+        # Tombol Informasi Sensor
+        self.informationSensor = QtWidgets.QPushButton(self.dashboardPage)
+        self.informationSensor.setGeometry(QtCore.QRect(30, 230, 60, 30))
+        font = QtGui.QFont()
+        font.setFamily("FontAwesome")
+        font.setPointSize(12)
+        font.setBold(True)
+        font.setWeight(75)
+        self.informationSensor.setFont(font)
+        self.informationSensor.setAutoFillBackground(False)
+        self.informationSensor.setStyleSheet("background-color: rgb(46, 204, 113);\n"
+"color: rgb(255, 255, 255);")
+        icon5 = QtGui.QIcon()
+        icon5.addPixmap(QtGui.QPixmap("assets/icon/info-24.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.informationSensor.setIcon(icon5)
+        self.informationSensor.setFlat(False)
+        self.informationSensor.setObjectName("informationSensor")
+        # self.informationSensor.clicked.connect()
+
+        # Tombol Hapus Sensor
+        self.deleteSensor = QtWidgets.QPushButton(self.dashboardPage)
+        self.deleteSensor.setGeometry(QtCore.QRect(110, 230, 80, 30))
+        font = QtGui.QFont()
+        font.setFamily("FontAwesome")
+        font.setPointSize(12)
+        font.setBold(True)
+        font.setWeight(75)
+        self.deleteSensor.setFont(font)
+        self.deleteSensor.setAutoFillBackground(False)
+        self.deleteSensor.setStyleSheet("background-color: rgb(192, 57, 43);\n"
+"color: rgb(255, 255, 255);")
+        icon6 = QtGui.QIcon()
+        icon6.addPixmap(QtGui.QPixmap("assets/icon/trash-5-24.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.deleteSensor.setIcon(icon6)
+        self.deleteSensor.setFlat(False)
+        self.deleteSensor.setObjectName("deleteSensor")
+        self.deleteSensor.clicked.connect(Ui_MainWindow.removeSensor)
+
+        # Tombol Start Sensor
+        self.startSensor = QtWidgets.QPushButton(self.dashboardPage)
+        self.startSensor.setGeometry(QtCore.QRect(210, 230, 70, 30))
+        font = QtGui.QFont()
+        font.setFamily("FontAwesome")
+        font.setPointSize(12)
+        font.setBold(True)
+        font.setWeight(75)
+        self.startSensor.setFont(font)
+        self.startSensor.setAutoFillBackground(False)
+        self.startSensor.setStyleSheet("background-color: rgb(39, 174, 96);\n"
+"color: rgb(255, 255, 255);")
+        icon7 = QtGui.QIcon()
+        icon7.addPixmap(QtGui.QPixmap("assets/icon/start-24.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.startSensor.setIcon(icon7)
+        self.startSensor.setFlat(False)
+        self.startSensor.setObjectName("startSensor")
+        self.startSensor.clicked.connect(Ui_MainWindow.startSensor)
+
+        # Tombol Stop Sensor
+        self.stopSensor = QtWidgets.QPushButton(self.dashboardPage)
+        self.stopSensor.setGeometry(QtCore.QRect(310, 230, 70, 30))
+        font = QtGui.QFont()
+        font.setFamily("FontAwesome")
+        font.setPointSize(12)
+        font.setBold(True)
+        font.setWeight(75)
+        self.stopSensor.setFont(font)
+        self.stopSensor.setAutoFillBackground(False)
+        self.stopSensor.setStyleSheet("background-color: rgb(192, 57, 43);\n"
+"color: rgb(255, 255, 255);")
+        icon8 = QtGui.QIcon()
+        icon8.addPixmap(QtGui.QPixmap("assets/icon/stop-24.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.stopSensor.setIcon(icon8)
+        self.stopSensor.setFlat(False)
+        self.stopSensor.setObjectName("stopSensor")
+        self.stopSensor.clicked.connect(Ui_MainWindow.stopSensor)
+
         # Tabel Sensor
         self.sensorListTable = QtWidgets.QTableWidget(self.dashboardPage)
-        self.sensorListTable.setGeometry(QtCore.QRect(30, 250, 731, 251))
+        self.sensorListTable.setGeometry(QtCore.QRect(30, 270, 731, 251))
         self.sensorListTable.setObjectName("sensorListTable")
         self.sensorListTable.setColumnCount(4)
         self.sensorListTable.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.Stretch)
         self.sensorListTable.setHorizontalHeaderLabels(("Names", "Protected Subnet", "IP Address", "Company"))
+        
 
         # Query untuk menampilkan data sensor
         db = db_conn.cursor()
@@ -177,11 +254,14 @@ class Ui_MainWindow(object):
             self.sensorListTable.insertRow(row_number)
             for colum_number, data in enumerate(row_data):
                 self.sensorListTable.setItem(row_number, colum_number, QtWidgets.QTableWidgetItem(str(data)))
-
+        
+        self.sensorListTable.viewport().update()
+        self.sensorListTable.clicked.connect(self.on_Click)
+        
 
         # Tombol Menuju Halaman Add Sensor
         self.addSensorButton = QtWidgets.QPushButton(self.dashboardPage)
-        self.addSensorButton.setGeometry(QtCore.QRect(30, 540, 121, 31))
+        self.addSensorButton.setGeometry(QtCore.QRect(30, 570, 121, 31))
         font = QtGui.QFont()
         font.setFamily("FontAwesome")
         font.setPointSize(12)
@@ -585,6 +665,10 @@ class Ui_MainWindow(object):
         self.headerLabelDashboard.setText(_translate("MainWindow", "Welcome To Mata Elang Sensor Management "))
         self.tableHaderLabel.setText(_translate("MainWindow", "Sensor List"))
 
+        self.informationSensor.setText(_translate("MainWindow", "Info"))
+        self.deleteSensor.setText(_translate("MainWindow", "Delete"))
+        self.startSensor.setText(_translate("MainWindow", "Start"))
+        self.stopSensor.setText(_translate("MainWindow", "Stop"))
         self.addSensorButton.setText(_translate("MainWindow", "Add Sensor"))
         self.headerLabelMonitorSensor.setText(_translate("MainWindow", "Monitor Sensor"))
         self.tableHeaderMonitorSensor.setText(_translate("MainWindow", "Sensor List"))
@@ -720,6 +804,17 @@ class Ui_MainWindow(object):
         self.actionFind_2.setText(_translate("MainWindow", "&Find .."))
         self.actionReplace.setText(_translate("MainWindow", "&Replace"))
     
+    def on_Click(self):
+        global selectedIP
+        #selected cell value.
+        index = (self.sensorListTable.selectionModel().currentIndex())
+        selectedIP = index.sibling(index.row(),index.column()).data()
+
+        # Buat Inventory File untuk Hosts
+        hosts_file = open("./ansible/hosts.ini","w+")
+        hosts_file.write(selectedIP)
+        hosts_file.close()
+    
     def createDataSensor(self):
         #Pilih IP
         list_host = []
@@ -805,11 +900,39 @@ class Ui_MainWindow(object):
         os.chdir("/home/taufiq/Documents/DATA/docker-management/ansible")
         os.system("ansible-playbook playbook-install-docker.yml playbook-community-installer.yml -i hosts.ini ")
     
-    # def readDataSensor():
-    #     db.execute("SELECT * FROM tb_sensor_env")
-    #     data_sensor = db.fetchall()
-    #     for row in data_sensor:
-    #         print(row)
+    def startSensor(self):
+        os.chdir("/home/taufiq/Documents/DATA/docker-management/ansible")
+        cmd = "ansible-playbook playbook-community-installer.yml --tags 'Running container' -i hosts.ini"
+        output = subprocess.call(cmd, shell=True)
+        if output == 0:
+            QMessageBox.information(QMessageBox(),'Successful','Sensor Started')
+        else:
+            QMessageBox.warning(QMessageBox(),'Error','Sensor Cannot Started')
+    
+    def stopSensor(self):
+        os.chdir("/home/taufiq/Documents/DATA/docker-management/ansible")
+        cmd = "ansible-playbook playbook-manage-container.yml --tags 'Stop Container' -i hosts.ini"
+        output = subprocess.call(cmd, shell=True)
+        if output == 0:
+            QMessageBox.information(QMessageBox(),'Successful','Sensor Stopped')
+        else:
+            QMessageBox.warning(QMessageBox(),'Error','Sensor Cannot Stopped')
+    
+    def removeSensor(self):
+        os.chdir("/home/taufiq/Documents/DATA/docker-management/ansible")
+        cmd = "ansible-playbook playbook-manage-container.yml -i hosts.ini"
+        output = subprocess.call(cmd, shell=True)
+        if output == 0:
+            db = db_conn.cursor()
+            db.execute(
+                '''DELETE FROM tb_sensor_env WHERE mqttIP=?''',(selectedIP,)
+            )
+            db_conn.commit()
+            QMessageBox.information(QMessageBox(),'Successful','Sensor Removed')
+        else:
+            QMessageBox.warning(QMessageBox(),'Error','Sensor Cannot Removed')
+    
+
 
     def copyFileSensor():
         # Copy file .env ke /var/tmp/data_sensor sebagai data sensor pada server
