@@ -1,0 +1,20 @@
+---
+- hosts: all
+  become: true
+  vars_files:
+  - vars/default.yml
+
+  tasks:
+  - name: Stop Container
+    docker_container:
+      name: "{{ default_container_name }}"
+      state: stopped
+    tags:
+      - Stop Container
+  
+  - name: Remove Container
+    docker_container:
+      name: "{{ default_container_name }}"
+      state: absent
+    tags:
+      - Remove Container
