@@ -1,6 +1,7 @@
 #Untrack Folder
 assets/
 __pycache__/
+output/
 
 #Ignore all .db files
 *.db
