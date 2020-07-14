@@ -1,0 +1,19 @@
+---
+- hosts: all
+  become: true
+  vars_files:
+  - vars/default.yml
+
+  tasks:
+  - name: Get Infos on Container
+    shell:
+      cmd: docker logs {{ default_container_name }}
+    register: result
+    tags:
+      - Get Log Docker
+  
+  - name: Local Copy
+    delegate_to: localhost
+    copy: 
+      content: "{{ result }}"
+      dest: "/home/taufiq/Documents/DATA/docker-management/output/logs"
