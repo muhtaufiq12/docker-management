@@ -5,16 +5,16 @@
   - vars/default.yml
 
   tasks:
-  - name: Get Infos on Container
+  - name: Get Info on Container
     docker_container_info:
       name: "{{ default_container_name }}"
     register: result
     tags:
       - Get Info Container
-  
-  - name: Local Copy
+    
+  - name: Local copy
     delegate_to: localhost
     copy: 
       content: "{{ result }}"
-      dest: "/home/taufiq/Documents/DATA/docker-management/output/info"
+      dest: "/home/taufiq/Documents/DATA/docker-management/output/info-sensor/{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}"
   

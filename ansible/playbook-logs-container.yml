@@ -5,15 +5,15 @@
   - vars/default.yml
 
   tasks:
-  - name: Get Infos on Container
+  - name: Get log of docker container
     shell:
       cmd: docker logs {{ default_container_name }}
     register: result
     tags:
       - Get Log Docker
   
-  - name: Local Copy
+  - name: Local copy
     delegate_to: localhost
     copy: 
       content: "{{ result }}"
-      dest: "/home/taufiq/Documents/DATA/docker-management/output/logs"
+      dest: "/home/taufiq/Documents/DATA/docker-management/output/log-sensor/{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}"
