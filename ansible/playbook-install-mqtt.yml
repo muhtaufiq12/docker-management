@@ -1,0 +1,11 @@
+---
+- hosts: all
+  become: true
+  vars_files:
+    - vars/default.yml
+
+  tasks:
+    - name: Install MQTT broker
+      apt:
+        name: mosquitto
+        state: latest
