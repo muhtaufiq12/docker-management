@@ -70,24 +70,34 @@ class Ui_MainWindow(object):
         self.toolButton_6.clicked.connect(lambda : self.stackedWidget.setCurrentIndex(3))
         self.toolButton_6.setObjectName("toolButton_6")
 
-        # Dashboard Page - refresh Button
-#         self.refreshButtonDashboard = QtWidgets.QToolButton(self.dashboardPage)
-#         self.refreshButtonDashboard.setGeometry(QtCore.QRect(120, 71, 91, 81))
-#         font = QtGui.QFont()
-#         font.setFamily("FontAwesome")
-#         font.setPointSize(12)
-#         self.refreshButtonDashboard.setFont(font)
-#         self.refreshButtonDashboard.setFocusPolicy(QtCore.Qt.NoFocus)
-#         self.refreshButtonDashboard.setStyleSheet("background-color: rgb(255, 255, 255);\n"
-# "border: 0;")
-#         icon = QtGui.QIcon()
-#         icon.addPixmap(QtGui.QPixmap("assets/icon/refresh-52.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-#         self.refreshButtonDashboard.setIcon(icon)
-#         self.refreshButtonDashboard.setIconSize(QtCore.QSize(52, 52))
-#         self.refreshButtonDashboard.setToolButtonStyle(QtCore.Qt.ToolButtonTextUnderIcon)
-#         self.refreshButtonDashboard.clicked.connect(self.loadData)
-#         self.refreshButtonDashboard.setObjectName("refreshButtonDashboard")
+        
+        #Dashboard Page - refresh Button
+        self.refreshButtonDashboard = QtWidgets.QToolButton(self.dashboardPage)
+        self.refreshButtonDashboard.setGeometry(QtCore.QRect(120, 71, 91, 81))
+        font = QtGui.QFont()
+        font.setFamily("FontAwesome")
+        font.setPointSize(12)
+        self.refreshButtonDashboard.setFont(font)
+        self.refreshButtonDashboard.setFocusPolicy(QtCore.Qt.NoFocus)
+        self.refreshButtonDashboard.setStyleSheet("background-color: rgb(255, 255, 255);\n"
+"border: 0;")
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap("assets/icon/refresh-52.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.refreshButtonDashboard.setIcon(icon)
+        self.refreshButtonDashboard.setIconSize(QtCore.QSize(52, 52))
+        self.refreshButtonDashboard.setToolButtonStyle(QtCore.Qt.ToolButtonTextUnderIcon)
+        self.refreshButtonDashboard.clicked.connect(self.loadData)
+        self.refreshButtonDashboard.setObjectName("refreshButtonDashboard")
 
+        # Dashboard Page - Sensor List Table
+        self.sensorListTable = QtWidgets.QTableWidget(self.dashboardPage)
+        self.sensorListTable.setGeometry(QtCore.QRect(20, 180, 731, 400))
+        self.sensorListTable.setObjectName("sensorListTable")
+        self.sensorListTable.setColumnCount(5)
+        self.sensorListTable.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.Stretch)
+        self.sensorListTable.setHorizontalHeaderLabels(("Device ID","Device Name", "Protected Subnet", "IP Address", "Company"))
+
+        
         self.loadData()
         
         # # Dashboard Page - Sensor List Table
@@ -119,17 +129,15 @@ class Ui_MainWindow(object):
         self.listContainer1 = QtWidgets.QListWidget(self.containerPage)
         self.listContainer1.setGeometry(QtCore.QRect(10, 10, 201, 691))
         self.listContainer1.setObjectName("listContainer1")
-        font = QtGui.QFont()
-        font.setFamily("FontAwesome")
-        font.setPointSize(16)
+        
        
-        query_data = db_connection.cursor()
-        query_data.execute("SELECT deviceName FROM tb_sensor_env")
-        data_sensor = query_data.fetchall()
-        for data in data_sensor: 
-                # self.listContainer1.addItem(QListWidgetItem(iconDocker, movide, self.listContainer1))
-                self.listContainer1.setFont(font)
-                self.listContainer1.addItem(''.join(data))
+        self.loadDataContainerPage()
+        # query_data = db_connection.cursor()
+        # query_data.execute("SELECT deviceName FROM tb_sensor_env")
+        # data_sensor = query_data.fetchall()
+        # for data in data_sensor: 
+        #         self.listContainer1.setFont(font)
+        #         self.listContainer1.addItem(''.join(data))
         
         self.listContainer1.itemActivated.connect(self.selectedItem)
 
@@ -152,6 +160,10 @@ class Ui_MainWindow(object):
         self.startButton.setText("Start")
         self.startButton.setStyleSheet("background-color: rgb(255, 255, 255);\n"
 "border: 0;")
+        self.startButton.setStyleSheet("QToolButton:hover"
+                                        "{"
+                                        "background-color : lightblue;"
+                                        "}")
         icon1 = QtGui.QIcon()
         icon1.addPixmap(QtGui.QPixmap("assets/icon/play-icon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.startButton.setIcon(icon1)
@@ -170,6 +182,10 @@ class Ui_MainWindow(object):
         self.stopButton.setText("Stop")
         self.stopButton.setStyleSheet("background-color: rgb(255, 255, 255);\n"
 "border: 0;")
+        self.stopButton.setStyleSheet("QToolButton:hover"
+                                        "{"
+                                        "background-color : lightblue;"
+                                        "}")
         icon2 = QtGui.QIcon()
         icon2.addPixmap(QtGui.QPixmap("assets/icon/stop-icon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.stopButton.setIcon(icon2)
@@ -188,6 +204,10 @@ class Ui_MainWindow(object):
         self.deleteButton.setText("Delete")
         self.deleteButton.setStyleSheet("background-color: rgb(255, 255, 255);\n"
 "border: 0;")
+        self.deleteButton.setStyleSheet("QToolButton:hover"
+                                        "{"
+                                        "background-color : lightblue;"
+                                        "}")
         icon3 = QtGui.QIcon()
         icon3.addPixmap(QtGui.QPixmap("assets/icon/trash-icon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.deleteButton.setIcon(icon3)
@@ -206,6 +226,10 @@ class Ui_MainWindow(object):
         self.infoButton.setText("Info")
         self.infoButton.setStyleSheet("background-color: rgb(255, 255, 255);\n"
 "border: 0;")
+        self.infoButton.setStyleSheet("QToolButton:hover"
+                                        "{"
+                                        "background-color : lightblue; "
+                                        "}")
         icon4 = QtGui.QIcon()
         icon4.addPixmap(QtGui.QPixmap("assets/icon/info-icon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.infoButton.setIcon(icon4)
@@ -225,6 +249,10 @@ class Ui_MainWindow(object):
         self.refreshButton.setText("Refresh")
         self.refreshButton.setStyleSheet("background-color: rgb(255, 255, 255);\n"
 "border: 0;")
+        self.refreshButton.setStyleSheet("QToolButton:hover"
+                                        "{"
+                                        "background-color : lightblue; "
+                                        "}")
         icon4 = QtGui.QIcon()
         icon4.addPixmap(QtGui.QPixmap("assets/icon/refresh-52.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.refreshButton.setIcon(icon4)
@@ -243,18 +271,18 @@ class Ui_MainWindow(object):
         self.listWidget_2 = QtWidgets.QListWidget(self.monitorinPage)
         self.listWidget_2.setGeometry(QtCore.QRect(10, 20, 201, 681))
         self.listWidget_2.setObjectName("listWidget_2")
-        font = QtGui.QFont()
-        font.setFamily("FontAwesome")
-        font.setPointSize(16)
+        self.loadDataMonitoringPage()
+        # font = QtGui.QFont()
+        # font.setFamily("FontAwesome")
+        # font.setPointSize(16)
 
-        query_data = db_connection.cursor()
-        query_data.execute("SELECT deviceName FROM tb_sensor_env")
-        data_sensor = query_data.fetchall()
-        for data in data_sensor: 
-                self.listWidget_2.setFont(font)
-                self.listWidget_2.addItem(''.join(data))
+        # query_data = db_connection.cursor()
+        # query_data.execute("SELECT deviceName FROM tb_sensor_env")
+        # data_sensor = query_data.fetchall()
+        # for data in data_sensor: 
+        #         self.listWidget_2.setFont(font)
+        #         self.listWidget_2.addItem(''.join(data))
         
-        # self.listContainer1.itemActivated.connect(self.selectedItem)
         self.listWidget_2.itemActivated.connect(self.getLogsDocker)
 
         # Monitoring Page - Monitoring Label
@@ -532,7 +560,7 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(_translate("MainWindow", "Docker Management"))
         self.headerDashboardLabel.setText(_translate("MainWindow", "Sensor List"))
         self.toolButton_6.setText(_translate("MainWindow", "Add Sensor"))
-        # self.refreshButtonDashboard.setText(_translate("MainWindow", "Refresh"))
+        self.refreshButtonDashboard.setText(_translate("MainWindow", "Refresh"))
         self.deviceIDLabel.setText(_translate("MainWindow", "Device ID"))
         self.deviceNameLabel.setText(_translate("MainWindow", "Device Name"))
         self.companyLabel.setText(_translate("MainWindow", "Company"))
@@ -561,34 +589,49 @@ class Ui_MainWindow(object):
         for x in result:
                 selectedIP = x[0]
         try:
-                hosts_file = open("./ansible/hosts.ini","w+")
+                hosts_file = open("/home/taufiq/Documents/DATA/docker-management/ansible/hosts.ini","w+")
                 hosts_file.write(selectedIP)
                 hosts_file.close()
                 QMessageBox.information(QMessageBox(),'Successful','Sensor Selected')
-        except Exception:
+                self.logs.setText("")
+                print(selectedIP)
+        except Exception as e:
                 QMessageBox.warning(QMessageBox(), 'Error', 'Sensor Could Not Selected')
-        self.listContainer1.setCurrentIndex(0)
+                print(str(e))
+        
     
     def getInfoSensor(self):
         os.chdir("/home/taufiq/Documents/DATA/docker-management/ansible")
+
         cmd = "ansible-playbook playbook-container-info.yml -i hosts.ini"
-        proc = subprocess.Popen(shlex.split(cmd), stdout=subprocess.PIPE, )
-        info_container = open("/home/taufiq/Documents/DATA/docker-management/output/info")
+        proc = subprocess.Popen(shlex.split(cmd), stdout=subprocess.PIPE).communicate()
+        info_container = open("/home/taufiq/Documents/DATA/docker-management/output/info-sensor/"+selectedIP)
         data = json.loads(info_container.read())
+
+        IDContainer = data['container']['Id']
+        statusContainer = data['container']['State']['Status']
+        sensorName = data['container']['Name']
+        baseImage = data['container']['Config']['Image']
+        startedContainer = data['container']['State']['StartedAt']
+        networkMode = data['container']['HostConfig']['NetworkMode']
+
         self.logs.setText("")
         self.logs.append("Device Name : "+nameDevice)
         self.logs.append("IP Address : "+selectedIP)
         self.logs.append("\n")
-        self.logs.append("ID Container : "+data['container']['Id'])
-        self.logs.append("Container Status : "+data['container']['State']['Status'])
-        self.logs.append("Name Sensor : "+data['container']['Name'])
-        self.logs.append("Base Image : "+data['container']['Config']['Image'])
-        self.logs.append("Started At : "+data['container']['State']['StartedAt'])
-        self.logs.append("Network Mode : "+data['container']['HostConfig']['NetworkMode'])
 
+        self.logs.append("ID Container : "+IDContainer)
+        self.logs.append("Container Status : "+statusContainer)
+        self.logs.append("Name Sensor : "+sensorName)
+        self.logs.append("Base Image : "+baseImage)
+        self.logs.append("Started At : "+startedContainer)
+        self.logs.append("Network Mode : "+networkMode)
+        os.chdir("/home/taufiq/Documents/DATA/docker-management")
+        
 
     def getLogsDocker(self, item):
         nameDevice = item.text()
+        self.logsSensor.setText("")
 
         query_data = db_connection.cursor()
         sql_statement = '''SELECT mqttIP FROM tb_sensor_env WHERE deviceName='{0}' '''.format(nameDevice)
@@ -596,23 +639,28 @@ class Ui_MainWindow(object):
         result = query_data.fetchall()
         for x in result:
                 selectedIP = x[0]
+
         try:
                 hosts_file = open("./ansible/hosts.ini","w+")
                 hosts_file.write(selectedIP)
                 hosts_file.close()
                 os.chdir("/home/taufiq/Documents/DATA/docker-management/ansible")
-                cmd = "/usr/bin/ansible-playbook playbook-logs-container.yml -i hosts.ini"
-                proc = subprocess.Popen(shlex.split(cmd), stdout=subprocess.PIPE, )
-                log_container = open("/home/taufiq/Documents/DATA/docker-management/output/logs")
-                data = json.loads(log_container.read())
                 self.logsSensor.setText("")
+                cmd = "/usr/bin/ansible-playbook playbook-logs-container.yml -i hosts.ini"
+                proc = subprocess.Popen(shlex.split(cmd), stdout=subprocess.PIPE).communicate()
+                log_container = open("/home/taufiq/Documents/DATA/docker-management/output/log-sensor/"+selectedIP)
+                data = json.loads(log_container.read())
                 self.logsSensor.append(data['stderr']+data['stdout'])
-        except Exception:
+        except Exception as e:
                 QMessageBox.warning(QMessageBox(), 'Error', 'Sensor Could Not Selected')
+                print(str(e))
+
+        os.chdir("/home/taufiq/Documents/DATA/docker-management")
 
     def startSensor(self):
         os.chdir("/home/taufiq/Documents/DATA/docker-management")
         os.chdir("/home/taufiq/Documents/DATA/docker-management/ansible") 
+
         cmd = "/usr/bin/ansible-playbook playbook-community-installer.yml --tags 'Running container' -i hosts.ini"
         process = subprocess.Popen(shlex.split(cmd), stdout=subprocess.PIPE)
         self.logs.setText("")
@@ -623,12 +671,15 @@ class Ui_MainWindow(object):
                 if output:
                         self.logs.append(output.strip().decode('utf-8'))
         rc = process.poll()
+
         os.chdir("/home/taufiq/Documents/DATA/docker-management")
         self.logs.append("Sensor Successfully Started")
+        self.loadData()
 
     def stopSensor(self):
         os.chdir("/home/taufiq/Documents/DATA/docker-management")
         os.chdir("/home/taufiq/Documents/DATA/docker-management/ansible")
+
         cmd = "/usr/bin/ansible-playbook playbook-manage-container.yml --tags 'Stop Container' -i hosts.ini"
         process = subprocess.Popen(shlex.split(cmd), stdout=subprocess.PIPE)
         self.logs.setText("")
@@ -639,11 +690,14 @@ class Ui_MainWindow(object):
                 if output:
                         self.logs.append(output.strip().decode('utf-8'))
         rc = process.poll()
+
         self.logs.append("Sensor Successfully Stopped")
+        self.loadData()
 
     def deleteSensor(self):
         os.chdir("/home/taufiq/Documents/DATA/docker-management")
         os.chdir("/home/taufiq/Documents/DATA/docker-management/ansible")
+
         cmd = "/usr/bin/ansible-playbook playbook-manage-container.yml -i hosts.ini"
         process = subprocess.Popen(shlex.split(cmd), stdout=subprocess.PIPE)
         self.logs.setText("")
@@ -659,7 +713,11 @@ class Ui_MainWindow(object):
                 '''DELETE FROM tb_sensor_env WHERE mqttIP='{0}' '''.format(selectedIP)
         )
         db_connection.commit()
+
         self.logs.append("Sensor Successfully Deleted")
+        self.loadData()
+        self.loadDataContainerPage()
+        self.loadDataMonitoringPage()
 
     def createDataSensor(self):
         #Pilih IP
@@ -719,27 +777,23 @@ class Ui_MainWindow(object):
         env_sensor_file.close()
 
         try:
-                Ui_MainWindow.installSensor()
-        except e as Exception:
+                self.installSensor()
+        except Exception:
                 print(e)
 
-    def installSensor():
+    def installSensor(self):
         os.chdir("/home/taufiq/Documents/DATA/docker-management/ansible")
+        os.system("/usr/bin/ansible-playbook playbook-install-mqtt.yml -i hosts.ini ")
         os.system("/usr/bin/ansible-playbook playbook-install-docker.yml playbook-community-installer.yml -i hosts.ini ")
         os.chdir("/home/taufiq/Documents/DATA/docker-management")
+        self.loadData()
+        self.loadDataContainerPage()
+        self.loadDataMonitoringPage
 
     def refreshPage(self):
         self.logs.setText("")
     
     def loadData(self):
-        # Dashboard Page - Sensor List Table
-        self.sensorListTable = QtWidgets.QTableWidget(self.dashboardPage)
-        self.sensorListTable.setGeometry(QtCore.QRect(20, 180, 731, 400))
-        self.sensorListTable.setObjectName("sensorListTable")
-        self.sensorListTable.setColumnCount(5)
-        self.sensorListTable.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.Stretch)
-        self.sensorListTable.setHorizontalHeaderLabels(("Device ID","Device Name", "Protected Subnet", "IP Address", "Company"))
-
         # Dashboard Page - Sensor List Table - Query untuk menampilkan data sensor
         db = db_connection.cursor()
         db.execute("SELECT deviceID, deviceName, protectedSubnet, mqttIP, company FROM tb_sensor_env")
@@ -749,7 +803,32 @@ class Ui_MainWindow(object):
             self.sensorListTable.insertRow(row_number)
             for colum_number, data in enumerate(row_data):
                 self.sensorListTable.setItem(row_number, colum_number, QtWidgets.QTableWidgetItem(str(data)))
+
+    def loadDataContainerPage(self):
+        self.listContainer1.clear()
+        font = QtGui.QFont()
+        font.setFamily("FontAwesome")
+        font.setPointSize(16)
         
+        query_data = db_connection.cursor()
+        query_data.execute("SELECT deviceName FROM tb_sensor_env")
+        data_sensor = query_data.fetchall()
+        for data in data_sensor: 
+                self.listContainer1.setFont(font)
+                self.listContainer1.addItem(''.join(data))    
+
+    def loadDataMonitoringPage(self):
+        self.listWidget_2.clear()
+        font = QtGui.QFont()
+        font.setFamily("FontAwesome")
+        font.setPointSize(16)
+
+        query_data = db_connection.cursor()
+        query_data.execute("SELECT deviceName FROM tb_sensor_env")
+        data_sensor = query_data.fetchall()
+        for data in data_sensor: 
+                self.listWidget_2.setFont(font)
+                self.listWidget_2.addItem(''.join(data))   
         
 
 if __name__ == "__main__":
