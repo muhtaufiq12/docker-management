@@ -809,11 +809,14 @@ class Ui_MainWindow(object):
         #selected cell value.
         index = (self.sensorListTable.selectionModel().currentIndex())
         selectedIP = index.sibling(index.row(),index.column()).data()
+        print(selectedIP)
 
         # Buat Inventory File untuk Hosts
+        # cwd = "/home/home/taufiq/Documents/DATA/docker-management"
         hosts_file = open("./ansible/hosts.ini","w+")
         hosts_file.write(selectedIP)
         hosts_file.close()
+        # os.chdir("/home/taufiq/Documents/DATA/docker-management/")
     
     def createDataSensor(self):
         #Pilih IP
@@ -838,6 +841,7 @@ class Ui_MainWindow(object):
         hosts_file = open("./ansible/hosts.ini","w+")
         hosts_file.write(host)
         hosts_file.close()
+        os.chdir("/home/taufiq/Documents/DATA/docker-management")
 
 
         protectedSubnet = self.protectedSubnetlineEdit.text()
@@ -899,15 +903,21 @@ class Ui_MainWindow(object):
     def installCommunitySensor():
         os.chdir("/home/taufiq/Documents/DATA/docker-management/ansible")
         os.system("ansible-playbook playbook-install-docker.yml playbook-community-installer.yml -i hosts.ini ")
+        os.chdir("/home/taufiq/Documents/DATA/docker-management")
     
     def startSensor(self):
+        os.chdir("/home/taufiq/Documents/DATA/docker-management")
         os.chdir("/home/taufiq/Documents/DATA/docker-management/ansible")
         cmd = "ansible-playbook playbook-community-installer.yml --tags 'Running container' -i hosts.ini"
-        output = subprocess.call(cmd, shell=True)
+        # output = subprocess.call(cmd, shell=True)
+        process = subprocess.Popen(cmd, stdout=subprocess.PIPE)
+        for c in iter(lambda: process.stdout.read(1), ''):  # replace '' with b'' for Python 3
+            sys.stdout.write(c)
         if output == 0:
             QMessageBox.information(QMessageBox(),'Successful','Sensor Started')
         else:
             QMessageBox.warning(QMessageBox(),'Error','Sensor Cannot Started')
+        os.chdir("/home/taufiq/Documents/DATA/docker-management")
     
     def stopSensor(self):
         os.chdir("/home/taufiq/Documents/DATA/docker-management/ansible")
@@ -917,6 +927,7 @@ class Ui_MainWindow(object):
             QMessageBox.information(QMessageBox(),'Successful','Sensor Stopped')
         else:
             QMessageBox.warning(QMessageBox(),'Error','Sensor Cannot Stopped')
+        os.chdir("/home/taufiq/Documents/DATA/docker-management")
     
     def removeSensor(self):
         os.chdir("/home/taufiq/Documents/DATA/docker-management/ansible")
@@ -931,6 +942,12 @@ class Ui_MainWindow(object):
             QMessageBox.information(QMessageBox(),'Successful','Sensor Removed')
         else:
             QMessageBox.warning(QMessageBox(),'Error','Sensor Cannot Removed')
+        os.chdir("/home/taufiq/Documents/DATA/docker-management")
+    
+    # def manageContainer(self):
+    #     os.chdir("/home/taufiq/Documents/DATA/docker-management/ansible")
+    #     cmd = "ansible-playbook playbook-container-info.yml -i hosts.ini"
+        
     
 
 

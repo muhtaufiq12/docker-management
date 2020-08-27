@@ -11,12 +11,14 @@ from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 
+from loginPage import *
+
 
 db_connection = sqlite3.connect("db_sensor.db")
 
-class Ui_MainWindow(object):
+class Ui_MainWindow1(object):
 
-    def setupUi(self, MainWindow):
+    def setup(self, MainWindow):
         
         # MainWindow Settings
         MainWindow.setObjectName("MainWindow")
@@ -548,6 +550,28 @@ class Ui_MainWindow(object):
         self.monitoringButton.clicked.connect(lambda : self.stackedWidget.setCurrentIndex(2))
         self.buttonGroupMenu.addWidget(self.monitoringButton)
 
+        # Toolbar Frame - Logout Button
+        self.logoutButton = QtWidgets.QToolButton(self.toolbarFrame)
+        self.logoutButton.setGeometry(QtCore.QRect(1, 630, 151, 61))
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Ignored, QtWidgets.QSizePolicy.Ignored)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.logoutButton.sizePolicy().hasHeightForWidth())
+        self.logoutButton.setSizePolicy(sizePolicy)
+        font = QtGui.QFont()
+        font.setFamily("FontAwesome")
+        font.setPointSize(12)
+        self.logoutButton.setFont(font)
+        self.logoutButton.setStyleSheet("background-color: rgb(71, 206, 255);\n"
+"border: 0;")
+        icon8 = QtGui.QIcon()
+        icon8.addPixmap(QtGui.QPixmap("assets/icon/icons8-logout-rounded-left-64.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.logoutButton.setIcon(icon8)
+        self.logoutButton.setIconSize(QtCore.QSize(32, 32))
+        self.logoutButton.setToolButtonStyle(QtCore.Qt.ToolButtonTextUnderIcon)
+        self.logoutButton.clicked.connect(self.logout)
+        self.logoutButton.setObjectName("logoutButton")
+
 
         MainWindow.setCentralWidget(self.centralwidget)
 
@@ -574,6 +598,7 @@ class Ui_MainWindow(object):
         self.dashboardButton.setText(_translate("MainWindow", "Dashboard"))
         self.containersButton.setText(_translate("MainWindow", "Containers"))
         self.monitoringButton.setText(_translate("MainWindow", "Monitoring")) 
+        self.logoutButton.setText(_translate("MainWindow", "Logout"))
 
 
     def selectedItem(self, item):
@@ -788,7 +813,7 @@ class Ui_MainWindow(object):
         os.chdir("/home/taufiq/Documents/DATA/docker-management")
         self.loadData()
         self.loadDataContainerPage()
-        self.loadDataMonitoringPage
+        self.loadDataMonitoringPage()
 
     def refreshPage(self):
         self.logs.setText("")
@@ -829,13 +854,20 @@ class Ui_MainWindow(object):
         for data in data_sensor: 
                 self.listWidget_2.setFont(font)
                 self.listWidget_2.addItem(''.join(data))   
+
+    def logout(self):
+        self.window = QtWidgets.QMainWindow()
+        self.ui = Ui_MainWindow()
+        self.ui.setup(self.window)
+        self.window.show()
+        MainWindow.hide()
         
 
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
     MainWindow = QtWidgets.QMainWindow()
-    ui = Ui_MainWindow()
-    ui.setupUi(MainWindow)
+    ui = Ui_MainWindow1()
+    ui.setup(MainWindow)
     MainWindow.show()
     sys.exit(app.exec_())

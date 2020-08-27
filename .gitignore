@@ -3,8 +3,6 @@ assets/
 __pycache__/
 output/
 
-#Ignore all .db files
-*.db
 
 # Ignore list hosts.txt
 list-host.txt

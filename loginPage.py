@@ -1,82 +1,126 @@
 import sys
+import os
+import sqlite3
 
-from PyQt5 import QtWidgets, QtCore, QtGui, Qt
-from MataElangManagement import Ui_MainWindow
+from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtCore import *
+from PyQt5.QtWidgets import *
+from PyQt5.QtGui import *
 
-class MainWindow:
-    def __init__(self):
-        self.app = QtWidgets.QApplication(sys.argv)
-        # self.app = QtGui.QFontDatabase.addApplicationFont('/home/taufiq/Documents/DATA/docker-management/assets/fonts/')
-        self.window = QtWidgets.QMainWindow()
-        
-        self.logoPath = "/home/taufiq/Documents/DATA/docker-management/assets/images/boss.png"
+from dockerManagement import *
 
-        self.stylesheet = """
+db_connection = sqlite3.connect("db_sensor.db")
 
-        QPushButton#loginBtn{
-            background-color: #6052FF;
-            color: #fafafa; 
-            font-size: 15px; 
-            border-radius: 10px;
-        }
+class Ui_MainWindow(object):
+    def setup(self, MainWindow):
 
-        """
+        # MainWindow Settings
+        MainWindow.setObjectName("LoginWindow")
+        MainWindow.resize(1366, 768)
+        MainWindow.setStyleSheet("background-color: rgb(255, 255, 255);")
 
-        self.initGui()
+        # Central Widgets Settings
+        self.centralwidget = QtWidgets.QWidget(MainWindow)
+        self.centralwidget.setObjectName("centralwidget")
 
+        # Login Frame
+        self.frame = QtWidgets.QFrame(self.centralwidget)
+        self.frame.setGeometry(QtCore.QRect(460, 190, 421, 431))
+        self.frame.setStyleSheet("background-color: rgb(71, 206, 255);")
+        self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame.setObjectName("frame")
 
-        self.window.setWindowTitle("Mata Elang Sensor Management")
-        self.window.setGeometry(0, 0, 1440, 1024)
+        # Login Frame - Mata Elang Logo
+        self.mataelangLogo = QtWidgets.QLabel(self.frame)
+        self.mataelangLogo.setGeometry(QtCore.QRect(160, 40, 121, 111))
+        self.mataelangLogo.setText("")
+        self.mataelangLogo.setPixmap(QtGui.QPixmap("assets/icon/mata elang 52-02.png"))
+        self.mataelangLogo.setScaledContents(True)
+        self.mataelangLogo.setObjectName("mataelangLogo")
 
-        self.window.show()
-        self.app.setStyleSheet(self.stylesheet)
-        sys.exit(self.app.exec_())
+        # Login Frame - Username Field
+        self.usernameLabel = QtWidgets.QLabel(self.frame)
+        self.usernameLabel.setGeometry(QtCore.QRect(20, 170, 71, 21))
+        font = QtGui.QFont()
+        font.setFamily("FontAwesome")
+        font.setPointSize(12)
+        self.usernameLabel.setFont(font)
+        self.usernameLabel.setObjectName("usernameLabel")
+        self.usernamelineEdit = QtWidgets.QLineEdit(self.frame)
+        self.usernamelineEdit.setGeometry(QtCore.QRect(20, 190, 381, 41))
+        self.usernamelineEdit.setStyleSheet("background-color: rgb(227, 227, 227);")
+        self.usernamelineEdit.setObjectName("usernamelineEdit")
+
+        # Login Frame - Password Field
+        self.passwordLabel = QtWidgets.QLabel(self.frame)
+        self.passwordLabel.setGeometry(QtCore.QRect(20, 260, 71, 21))
+        font = QtGui.QFont()
+        font.setFamily("FontAwesome")
+        font.setPointSize(12)
+        self.passwordLabel.setFont(font)
+        self.passwordLabel.setObjectName("passwordLabel")
+        self.passwordlineEdit = QtWidgets.QLineEdit(self.frame)
+        self.passwordlineEdit.setGeometry(QtCore.QRect(20, 280, 381, 41))
+        self.passwordlineEdit.setStyleSheet("background-color: rgb(227, 227, 227);")
+        self.passwordlineEdit.setInputMethodHints(QtCore.Qt.ImhNone)
+        self.passwordlineEdit.setEchoMode(QtWidgets.QLineEdit.Password)
+        self.passwordlineEdit.setObjectName("passwordlineEdit")
+
+        # Login Frame - Login Button
+        self.loginButton = QtWidgets.QPushButton(self.frame)
+        self.loginButton.setGeometry(QtCore.QRect(20, 350, 381, 51))
+        font = QtGui.QFont()
+        font.setFamily("FontAwesome")
+        font.setPointSize(12)
+        self.loginButton.setFont(font)
+        self.loginButton.setStyleSheet("background-color: #6052FF;\n"
+"color: rgb(255, 255, 255);")
+        self.loginButton.clicked.connect(self.login)
+        self.loginButton.setObjectName("loginButton")
+
+        MainWindow.setCentralWidget(self.centralwidget)
+        self.statusbar = QtWidgets.QStatusBar(MainWindow)
+        self.statusbar.setObjectName("statusbar")
+        MainWindow.setStatusBar(self.statusbar)
+
+        self.retranslateUi(MainWindow)
+        QtCore.QMetaObject.connectSlotsByName(MainWindow)
+
+    def retranslateUi(self, MainWindow):
+        _translate = QtCore.QCoreApplication.translate
+        MainWindow.setWindowTitle(_translate("MainWindow", "Docker Management"))
+        self.usernameLabel.setText(_translate("MainWindow", "Username"))
+        self.passwordLabel.setText(_translate("MainWindow", "Password"))
+        self.loginButton.setText(_translate("MainWindow", "Login"))
     
-    def initGui(self):
-        #Create the labels that holds Mata Elang Logo
-        self.label = QtWidgets.QLabel(self.window)
-        self.label.setGeometry(583, 120, 200, 200)
+    def login(self):
+        username = self.usernamelineEdit.text()
+        password = self.passwordlineEdit.text()
+
+        db = db_connection.cursor()
+        db.execute("SELECT * FROM tb_user")
+        data_admin = db.fetchall()
+        for x in data_admin:
+            usernameAdmin = x[1]
+            passwordAdmin = x[2]
         
-        #Show Logo
-        self.image = QtGui.QImage(self.logoPath)
-        self.pixmapImage = QtGui.QPixmap.fromImage(self.image)
-
-        self.label.setPixmap(self.pixmapImage)
-        self.label.setScaledContents(True)
-
-        #Create Username field
-        self.usernameLabel = QtWidgets.QLabel(self.window)
-        self.usernameLabel.setText("Username")
-        self.usernameLabel.setGeometry(583, 350, 84, 24)
-
-        self.usernameField = QtWidgets.QTextEdit(self.window)
-        self.usernameField.setGeometry(583, 380, 220, 25)
-        self.usernameField.setObjectName("usernameField")
-        self.usernameField.setText("Username")
-
-        #Create Password field
-        self.passwordLabel = QtWidgets.QLabel(self.window)
-        self.passwordLabel.setText("Password")
-        self.passwordLabel.setGeometry(583, 410, 84, 24)
-
-        self.passwordField = QtWidgets.QTextEdit(self.window)
-        self.passwordField.setGeometry(583, 440, 220, 25)
-        self.passwordField.setText("Password")
-
-        #Create Login Button
-        self.loginBtn = QtWidgets.QPushButton(self.window)
-        self.loginBtn.setGeometry(583, 480, 220, 40)
-        self.loginBtn.setText("Login")
-        self.loginBtn.setObjectName("loginBtn")
-        self.loginBtn.clicked.connect(self.openLayout)
-        
-    def openLayout(self):
-        self.window = QtWidgets.QMainWindow()
-        self.ui = Ui_MainWindow()
-        self.ui.setupUi(self.window)
-        self.window.show()
-
-        
+        if username == usernameAdmin and password == passwordAdmin:
+            self.window = QtWidgets.QMainWindow()
+            self.ui = Ui_MainWindow1()
+            self.ui.setup(self.window)
+            self.window.show()
+            MainWindow.hide()
+            
+        else:
+            QMessageBox.warning(QMessageBox(), 'Error', 'Invalid Username or Password')
 
 
-main = MainWindow()
+if __name__ == "__main__":
+    import sys
+    app = QtWidgets.QApplication(sys.argv)
+    MainWindow = QtWidgets.QMainWindow()
+    ui = Ui_MainWindow()
+    ui.setup(MainWindow)
+    MainWindow.show()
+    sys.exit(app.exec_())
